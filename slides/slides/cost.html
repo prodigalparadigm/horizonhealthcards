@@ -1,0 +1,38 @@
+<section id="cost" data-section="What a card costs to produce, why clinician review is the real constraint, and the pace that follows from it." data-transition="fade" style="background:#F6F8F7;color:#16211F;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">What a card costs</h2>
+<div style="display:flex;gap:24px">
+<div style="flex:1;background:#FFFFFF;padding:32px;border:1px solid #DCE3E1;border-radius:16px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;color:#0E6F6B;line-height:1.1">$0.75</p>
+<p style="font-size:24px;color:#566663">model spend</p>
+</div>
+<div style="flex:1;background:#FFFFFF;padding:32px;border:1px solid #DCE3E1;border-radius:16px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;color:#16211F;line-height:1.1">191K</p>
+<p style="font-size:24px;color:#566663">agent tokens</p>
+</div>
+<div style="flex:1;background:#FFFFFF;padding:32px;border:1px solid #DCE3E1;border-radius:16px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;color:#16211F;line-height:1.1">65</p>
+<p style="font-size:24px;color:#566663">tool calls</p>
+</div>
+<div style="flex:1;background:#FFFFFF;padding:32px;border:1px solid #DCE3E1;border-radius:16px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;color:#16211F;line-height:1.1">13.8</p>
+<p style="font-size:24px;color:#566663">minutes to build</p>
+</div>
+</div>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif;font-size:28px;color:#16211F">
+<tr><th style="width:52%;font-size:24px;color:#566663">Step</th><th style="width:24%;font-size:24px;color:#566663">Model</th><th style="width:24%;font-size:24px;color:#566663;text-align:right">Cost</th></tr>
+<tr><td>Research, three gatherers in parallel</td><td>Sonnet</td><td style="text-align:right">$0.25</td></tr>
+<tr><td>Card assembly</td><td>Sonnet</td><td style="text-align:right">$0.09</td></tr>
+<tr><td>Independent fact-check</td><td>Opus</td><td style="text-align:right;color:#A4321E">$0.42</td></tr>
+</table>
+<div style="display:flex;gap:36px;align-items:center;background:#E2F0EF;padding:28px 36px;border-radius:16px">
+<p style="font-size:26px;line-height:1.4;color:#16211F"><b>The fact-check is a third of the cost and 57% of the time.</b> It is what caught the wrong-drug label. Moving it to a cheaper model saves twenty-five cents a card. Do not.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#566663">Measured on one card, 12 October 2026. Adds roughly $0.75 of orchestration, so about $1.50 all in.</p>
+<aside>Every number here is measured from a real run, not modelled. That is the point of showing the table rather than a single figure.
+
+The one assumption: the harness reports total tokens per agent, not the input/output split. These figures assume 92 percent input, which is typical for agentic loops because context and tool results are resent every turn. At 95/5 the total is $0.69; at 85/15 it is $0.91. The answer is stable either way.
+
+The fact-check line is the one to defend. It runs on the most capable model and it opens every source. That is where the money should sit, and the previous slide is the evidence.
+
+If asked about volume discounts or batching: prompt caching reduces the orchestration half across a batch, which is why the all-in figure drops as waves get larger.</aside>
+</section>

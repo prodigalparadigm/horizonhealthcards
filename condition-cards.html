@@ -119,6 +119,18 @@
     background: var(--warn-soft); color: var(--warn); border: 1px solid transparent;
   }
   .notice.phi { background: var(--critical-soft); color: var(--critical); }
+  .notice.ok { background: var(--ok-soft); color: var(--ok); }
+
+  .reviewbar {
+    margin-top: 11px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    background: var(--accent-soft); border-radius: var(--radius); padding: 8px 11px;
+  }
+  .reviewbar .lbl {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--accent-ink);
+  }
+  .reviewbar .chip { background: var(--surface); border-color: var(--line-strong); color: var(--ink); font-weight: 500; }
+  .reviewbar .chip:hover { border-color: var(--accent); color: var(--accent); }
 
   .recent { margin-top: 12px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
   .recent .lbl { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-3); }
@@ -228,6 +240,18 @@
   .vb.fixes { background: var(--warn-soft); color: var(--warn); }
   .vb.block { background: var(--critical-soft); color: var(--critical); }
   .dockempty { padding: 16px 18px; font-size: 13.5px; color: var(--ink-2); }
+  .coverage {
+    padding: 10px 18px; border-bottom: 1px solid var(--line); font-family: var(--mono);
+    font-size: 11px; color: var(--ink-2); display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .coverage b { color: var(--ink); font-weight: 600; }
+  .catline { margin-top: 8px !important; font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); }
+  .costline {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 8px 11px; margin-bottom: 12px; display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .costline b { color: var(--ink); font-weight: 600; }
 
   .banner.review { background: var(--accent-soft); color: var(--accent-ink); }
   .reviewpanel { padding: 18px 20px; background: var(--surface-2); border-top: 1px solid var(--line); }
@@ -240,6 +264,13 @@
   .finding a { color: var(--accent); }
   .acts2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
   button.approve { background: var(--ok); border-color: var(--ok); }
+  .blockwhy {
+    font-size: 13.5px; line-height: 1.5; color: var(--critical);
+    background: var(--critical-soft); border-radius: var(--radius);
+    padding: 10px 12px; margin-bottom: 12px;
+  }
+  .blockwhy b { font-weight: 600; }
+  .fieldhint { font-size: 12px; color: var(--ink-3); margin: 6px 0 0; }
   button.approve:hover { background: var(--ok); border-color: var(--ok); filter: brightness(1.1); }
   textarea {
     width: 100%; font-family: var(--sans); font-size: 14px; color: var(--ink);
@@ -258,13 +289,14 @@
     <form class="ask" id="askform" autocomplete="off">
       <div class="field">
         <label class="sr" for="condinput">Medical condition</label>
-        <input type="text" id="condinput" name="condition" placeholder="Type a condition — UC, afib, HFrEF, type 2 diabetes">
+        <input type="text" id="condinput" name="condition" placeholder="Type a condition — measles, UC, afib, HFrEF, type 2 diabetes">
       </div>
       <button type="submit" id="askbtn">Get card</button>
     </form>
     <div class="resolved" id="resolved" hidden></div>
     <div class="notice" id="notice" hidden></div>
     <div class="recent" id="recent" hidden></div>
+    <div class="reviewbar" id="reviewbar" hidden></div>
   </div>
 
   <div id="stage"></div>
@@ -295,7 +327,10 @@
   var STALE_DAYS = 90;
   var canReview = false;
   var reviewdock = document.getElementById("reviewdock");
+  var reviewbar = document.getElementById("reviewbar");
   var reviewerName = "";
+  var lastRes = null;
+  var coverage = null;
 
   /* ---------------- example card: layout only ---------------- */
   var EXAMPLE = {
@@ -373,22 +408,242 @@
   }
 
   /* ---------------- normalization ---------------- */
-  var LOCAL_MAP = {
-    "uc": "Ulcerative colitis", "ulc colitis": "Ulcerative colitis",
-    "afib": "Atrial fibrillation", "a fib": "Atrial fibrillation", "af": "Atrial fibrillation",
-    "chf": "Heart failure", "hf": "Heart failure",
-    "copd": "Chronic obstructive pulmonary disease",
-    "t2dm": "Type 2 diabetes mellitus", "dm2": "Type 2 diabetes mellitus",
-    "sugar": "Type 2 diabetes mellitus", "sugar diabetes": "Type 2 diabetes mellitus",
-    "ckd": "Chronic kidney disease", "ibd": "Inflammatory bowel disease",
-    "ra": "Rheumatoid arthritis", "ms": "Multiple sclerosis", "cad": "Coronary artery disease"
-  };
+  // The 200-condition catalog: [slug, condition, icd10, tier, aliases].
+  // Static reference data, so it ships with the page rather than living in the store.
+  var CATALOG = [
+  ["hypertension","Hypertension","I10",1,["htn", "high blood pressure"]],
+  ["hyperlipidemia","Hyperlipidemia","E78.5",1,["high cholesterol", "dyslipidemia"]],
+  ["coronary-artery-disease","Coronary artery disease","I25.10",1,["cad", "ischemic heart disease"]],
+  ["heart-failure-with-reduced-ejection-fraction","Heart failure with reduced ejection fraction","I50.2",1,["hfref", "chf", "systolic heart failure"]],
+  ["heart-failure-with-preserved-ejection-fraction","Heart failure with preserved ejection fraction","I50.3",1,["hfpef", "diastolic heart failure"]],
+  ["atrial-fibrillation","Atrial fibrillation","I48.91",1,["afib", "af", "a fib"]],
+  ["ischemic-stroke","Ischemic stroke","I63.9",1,["stroke", "cva", "cerebral infarction"]],
+  ["transient-ischemic-attack","Transient ischemic attack","G45.9",2,["tia", "mini stroke"]],
+  ["angina-pectoris","Angina pectoris","I20.9",2,["angina"]],
+  ["peripheral-artery-disease","Peripheral artery disease","I73.9",2,["pad", "peripheral vascular disease"]],
+  ["deep-vein-thrombosis","Deep vein thrombosis","I82.40",2,["dvt"]],
+  ["pulmonary-embolism","Pulmonary embolism","I26.99",2,["pe"]],
+  ["aortic-stenosis","Aortic stenosis","I35.0",2,["aortic valve stenosis"]],
+  ["mitral-regurgitation","Mitral regurgitation","I34.0",3,["mr", "mitral valve regurgitation"]],
+  ["hypertrophic-cardiomyopathy","Hypertrophic cardiomyopathy","I42.2",3,["hcm"]],
+  ["transthyretin-amyloid-cardiomyopathy","Transthyretin amyloid cardiomyopathy","E85.82",3,["attr-cm", "cardiac amyloidosis"]],
+  ["pulmonary-arterial-hypertension","Pulmonary arterial hypertension","I27.20",3,["pah"]],
+  ["cardiac-arrest","Cardiac arrest","I46.9",3,["sudden cardiac arrest"]],
+  ["type-2-diabetes-mellitus","Type 2 diabetes mellitus","E11.9",1,["t2dm", "dm2", "diabetes 2", "type 2 diabetes", "sugar diabetes"]],
+  ["type-1-diabetes-mellitus","Type 1 diabetes mellitus","E10.9",2,["t1dm", "dm1", "type 1 diabetes"]],
+  ["prediabetes","Prediabetes","R73.03",1,["impaired glucose tolerance"]],
+  ["obesity","Obesity","E66.9",1,["adiposity"]],
+  ["hypothyroidism","Hypothyroidism","E03.9",1,["underactive thyroid", "hashimoto"]],
+  ["hyperthyroidism","Hyperthyroidism","E05.90",2,["overactive thyroid", "graves"]],
+  ["osteoporosis","Osteoporosis","M81.0",1,["bone loss"]],
+  ["diabetic-peripheral-neuropathy","Diabetic peripheral neuropathy","E11.40",2,["diabetic neuropathy"]],
+  ["gout","Gout","M10.9",2,["gouty arthritis"]],
+  ["metabolic-syndrome","Metabolic syndrome","E88.81",2,[]],
+  ["polycystic-ovary-syndrome","Polycystic ovary syndrome","E28.2",2,["pcos"]],
+  ["vitamin-d-deficiency","Vitamin D deficiency","E55.9",2,[]],
+  ["primary-adrenal-insufficiency","Primary adrenal insufficiency","E27.1",3,["addison disease"]],
+  ["asthma","Asthma","J45.909",1,[]],
+  ["chronic-obstructive-pulmonary-disease","Chronic obstructive pulmonary disease","J44.9",1,["copd", "emphysema"]],
+  ["community-acquired-pneumonia","Community-acquired pneumonia","J18.9",1,["cap", "pneumonia"]],
+  ["acute-bronchitis","Acute bronchitis","J20.9",1,["chest cold"]],
+  ["influenza","Influenza","J11.1",1,["flu"]],
+  ["covid-19","COVID-19","U07.1",1,["covid", "sars-cov-2"]],
+  ["obstructive-sleep-apnea","Obstructive sleep apnea","G47.33",1,["osa", "sleep apnea"]],
+  ["allergic-rhinitis","Allergic rhinitis","J30.9",1,["hay fever", "seasonal allergies"]],
+  ["acute-sinusitis","Acute sinusitis","J01.90",1,["sinus infection"]],
+  ["respiratory-syncytial-virus-infection","Respiratory syncytial virus infection","J12.1",2,["rsv"]],
+  ["chronic-cough","Chronic cough","R05.3",2,[]],
+  ["idiopathic-pulmonary-fibrosis","Idiopathic pulmonary fibrosis","J84.112",2,["ipf"]],
+  ["pulmonary-nodule","Pulmonary nodule","R91.1",2,["lung nodule"]],
+  ["bronchiectasis","Bronchiectasis","J47.9",3,[]],
+  ["pertussis","Pertussis","A37.90",3,["whooping cough"]],
+  ["gastroesophageal-reflux-disease","Gastroesophageal reflux disease","K21.9",1,["gerd", "acid reflux", "heartburn"]],
+  ["irritable-bowel-syndrome","Irritable bowel syndrome","K58.9",1,["ibs"]],
+  ["chronic-constipation","Chronic constipation","K59.00",1,["constipation"]],
+  ["ulcerative-colitis","Ulcerative colitis","K51.90",1,["uc", "ulc colitis"]],
+  ["crohn-disease","Crohn disease","K50.90",1,["crohns", "crohn's"]],
+  ["metabolic-dysfunction-associated-steatotic-liver-disease","Metabolic dysfunction-associated steatotic liver disease","K76.0",1,["masld", "nafld", "fatty liver"]],
+  ["metabolic-dysfunction-associated-steatohepatitis","Metabolic dysfunction-associated steatohepatitis","K75.81",2,["mash", "nash"]],
+  ["peptic-ulcer-disease","Peptic ulcer disease","K27.9",2,["pud", "stomach ulcer"]],
+  ["helicobacter-pylori-infection","Helicobacter pylori infection","B96.81",2,["h pylori"]],
+  ["celiac-disease","Celiac disease","K90.0",2,["gluten enteropathy"]],
+  ["cirrhosis","Cirrhosis","K74.60",2,["liver cirrhosis"]],
+  ["chronic-hepatitis-c","Chronic hepatitis C","B18.2",2,["hep c", "hcv"]],
+  ["chronic-hepatitis-b","Chronic hepatitis B","B18.1",2,["hep b", "hbv"]],
+  ["diverticulitis","Diverticulitis","K57.92",2,[]],
+  ["cholelithiasis","Cholelithiasis","K80.20",2,["gallstones"]],
+  ["acute-pancreatitis","Acute pancreatitis","K85.90",2,["pancreatitis"]],
+  ["gastroparesis","Gastroparesis","K31.84",3,["delayed gastric emptying"]],
+  ["eosinophilic-esophagitis","Eosinophilic esophagitis","K20.0",3,["eoe"]],
+  ["osteoarthritis-of-the-knee","Osteoarthritis of the knee","M17.9",1,["knee oa", "knee arthritis"]],
+  ["osteoarthritis-of-the-hip","Osteoarthritis of the hip","M16.9",1,["hip oa", "hip arthritis"]],
+  ["chronic-low-back-pain","Chronic low back pain","M54.50",1,["low back pain", "lbp"]],
+  ["neck-pain","Neck pain","M54.2",1,["cervicalgia"]],
+  ["rheumatoid-arthritis","Rheumatoid arthritis","M06.9",1,["ra"]],
+  ["psoriatic-arthritis","Psoriatic arthritis","L40.50",2,["psa"]],
+  ["ankylosing-spondylitis","Ankylosing spondylitis","M45.9",2,["axial spondyloarthritis"]],
+  ["systemic-lupus-erythematosus","Systemic lupus erythematosus","M32.9",2,["lupus", "sle"]],
+  ["fibromyalgia","Fibromyalgia","M79.7",2,[]],
+  ["rotator-cuff-syndrome","Rotator cuff syndrome","M75.100",2,["rotator cuff tear", "shoulder impingement"]],
+  ["carpal-tunnel-syndrome","Carpal tunnel syndrome","G56.00",2,["cts"]],
+  ["plantar-fasciitis","Plantar fasciitis","M72.2",2,["heel pain"]],
+  ["lumbar-radiculopathy","Lumbar radiculopathy","M54.16",2,["sciatica", "pinched nerve"]],
+  ["polymyalgia-rheumatica","Polymyalgia rheumatica","M35.3",3,["pmr"]],
+  ["giant-cell-arteritis","Giant cell arteritis","M31.6",3,["gca", "temporal arteritis"]],
+  ["migraine","Migraine","G43.909",1,["migraines", "migraine headache"]],
+  ["alzheimer-disease","Alzheimer disease","G30.9",1,["alzheimers", "dementia"]],
+  ["mild-cognitive-impairment","Mild cognitive impairment","G31.84",1,["mci"]],
+  ["parkinson-disease","Parkinson disease","G20",1,["parkinsons", "pd"]],
+  ["multiple-sclerosis","Multiple sclerosis","G35",1,["ms"]],
+  ["epilepsy","Epilepsy","G40.909",2,["seizure disorder"]],
+  ["tension-type-headache","Tension-type headache","G44.209",2,["tension headache"]],
+  ["peripheral-neuropathy","Peripheral neuropathy","G62.9",2,["neuropathy"]],
+  ["benign-paroxysmal-positional-vertigo","Benign paroxysmal positional vertigo","H81.10",2,["bppv", "vertigo"]],
+  ["concussion","Concussion","S06.0X0A",2,["mild tbi", "head injury"]],
+  ["restless-legs-syndrome","Restless legs syndrome","G25.81",3,["rls"]],
+  ["myasthenia-gravis","Myasthenia gravis","G70.00",3,["mg"]],
+  ["amyotrophic-lateral-sclerosis","Amyotrophic lateral sclerosis","G12.21",3,["als", "lou gehrig"]],
+  ["spinal-muscular-atrophy","Spinal muscular atrophy","G12.1",3,["sma"]],
+  ["major-depressive-disorder","Major depressive disorder","F32.9",1,["depression", "mdd"]],
+  ["generalized-anxiety-disorder","Generalized anxiety disorder","F41.1",1,["anxiety", "gad"]],
+  ["bipolar-disorder","Bipolar disorder","F31.9",1,["bipolar", "manic depression"]],
+  ["schizophrenia","Schizophrenia","F20.9",1,[]],
+  ["post-traumatic-stress-disorder","Post-traumatic stress disorder","F43.10",1,["ptsd"]],
+  ["attention-deficit-hyperactivity-disorder","Attention-deficit/hyperactivity disorder","F90.9",1,["adhd", "add"]],
+  ["autism-spectrum-disorder","Autism spectrum disorder","F84.0",1,["asd", "autism"]],
+  ["alcohol-use-disorder","Alcohol use disorder","F10.20",1,["aud", "alcoholism"]],
+  ["opioid-use-disorder","Opioid use disorder","F11.20",1,["oud", "opioid addiction"]],
+  ["tobacco-use-disorder","Tobacco use disorder","F17.200",1,["smoking", "nicotine dependence"]],
+  ["chronic-insomnia","Chronic insomnia","G47.00",1,["insomnia"]],
+  ["panic-disorder","Panic disorder","F41.0",2,["panic attacks"]],
+  ["obsessive-compulsive-disorder","Obsessive-compulsive disorder","F42.9",2,["ocd"]],
+  ["anorexia-nervosa","Anorexia nervosa","F50.00",2,["anorexia", "eating disorder"]],
+  ["postpartum-depression","Postpartum depression","F53.0",2,["ppd"]],
+  ["stimulant-use-disorder","Stimulant use disorder","F15.20",3,["methamphetamine use disorder"]],
+  ["urinary-tract-infection","Urinary tract infection","N39.0",1,["uti", "bladder infection"]],
+  ["cellulitis","Cellulitis","L03.90",1,["skin infection"]],
+  ["streptococcal-pharyngitis","Streptococcal pharyngitis","J02.0",1,["strep throat", "sore throat"]],
+  ["acute-otitis-media","Acute otitis media","H66.90",1,["ear infection", "aom"]],
+  ["measles","Measles","B05.9",1,["rubeola", "measles virus"]],
+  ["herpes-zoster","Herpes zoster","B02.9",1,["shingles"]],
+  ["hiv-infection","HIV infection","B20",1,["hiv", "aids"]],
+  ["sepsis","Sepsis","A41.9",1,[]],
+  ["varicella","Varicella","B01.9",2,["chickenpox"]],
+  ["latent-tuberculosis-infection","Latent tuberculosis infection","R76.11",2,["ltbi", "latent tb"]],
+  ["active-pulmonary-tuberculosis","Active pulmonary tuberculosis","A15.0",2,["tb", "tuberculosis"]],
+  ["clostridioides-difficile-infection","Clostridioides difficile infection","A04.7",2,["c diff", "cdi"]],
+  ["lyme-disease","Lyme disease","A69.20",2,["borreliosis"]],
+  ["chlamydial-infection","Chlamydial infection","A56.00",2,["chlamydia"]],
+  ["gonococcal-infection","Gonococcal infection","A54.00",2,["gonorrhea"]],
+  ["syphilis","Syphilis","A53.9",2,[]],
+  ["osteomyelitis","Osteomyelitis","M86.9",3,["bone infection"]],
+  ["infective-endocarditis","Infective endocarditis","I33.0",3,["endocarditis"]],
+  ["mpox","Mpox","B04",3,["monkeypox"]],
+  ["atopic-dermatitis","Atopic dermatitis","L20.9",1,["eczema"]],
+  ["psoriasis","Psoriasis","L40.0",1,["plaque psoriasis"]],
+  ["acne-vulgaris","Acne vulgaris","L70.0",1,["acne"]],
+  ["melanoma","Melanoma","C43.9",1,["malignant melanoma"]],
+  ["rosacea","Rosacea","L71.9",2,[]],
+  ["chronic-spontaneous-urticaria","Chronic spontaneous urticaria","L50.1",2,["hives", "urticaria"]],
+  ["actinic-keratosis","Actinic keratosis","L57.0",2,["ak"]],
+  ["basal-cell-carcinoma","Basal cell carcinoma","C44.91",2,["bcc"]],
+  ["hidradenitis-suppurativa","Hidradenitis suppurativa","L73.2",3,["hs"]],
+  ["alopecia-areata","Alopecia areata","L63.9",3,["hair loss"]],
+  ["vitiligo","Vitiligo","L80",3,[]],
+  ["chronic-kidney-disease","Chronic kidney disease","N18.9",1,["ckd", "renal insufficiency"]],
+  ["diabetic-kidney-disease","Diabetic kidney disease","E11.21",1,["diabetic nephropathy"]],
+  ["acute-kidney-injury","Acute kidney injury","N17.9",1,["aki", "acute renal failure"]],
+  ["nephrolithiasis","Nephrolithiasis","N20.0",1,["kidney stones", "renal calculi"]],
+  ["benign-prostatic-hyperplasia","Benign prostatic hyperplasia","N40.0",1,["bph", "enlarged prostate"]],
+  ["end-stage-renal-disease","End-stage renal disease","N18.6",2,["esrd", "dialysis"]],
+  ["overactive-bladder","Overactive bladder","N32.81",2,["oab"]],
+  ["urinary-incontinence","Urinary incontinence","R32",2,["incontinence"]],
+  ["erectile-dysfunction","Erectile dysfunction","N52.9",2,["ed"]],
+  ["recurrent-urinary-tract-infection","Recurrent urinary tract infection","N39.0",2,["recurrent uti"]],
+  ["iga-nephropathy","IgA nephropathy","N02.8",3,["berger disease", "igan"]],
+  ["nephrotic-syndrome","Nephrotic syndrome","N04.9",3,[]],
+  ["breast-cancer-hr-positive-her2-negative","Breast cancer, HR-positive/HER2-negative","C50.919",1,["hr+ breast cancer", "er positive breast cancer"]],
+  ["breast-cancer-her2-positive","Breast cancer, HER2-positive","C50.919",1,["her2+ breast cancer"]],
+  ["triple-negative-breast-cancer","Triple-negative breast cancer","C50.919",2,["tnbc"]],
+  ["non-small-cell-lung-cancer","Non-small cell lung cancer","C34.90",1,["nsclc", "lung cancer"]],
+  ["small-cell-lung-cancer","Small cell lung cancer","C34.90",2,["sclc"]],
+  ["colorectal-cancer","Colorectal cancer","C18.9",1,["colon cancer", "crc"]],
+  ["prostate-cancer","Prostate cancer","C61",1,[]],
+  ["multiple-myeloma","Multiple myeloma","C90.00",1,["myeloma"]],
+  ["iron-deficiency-anemia","Iron deficiency anemia","D50.9",1,["ida", "low iron"]],
+  ["pancreatic-ductal-adenocarcinoma","Pancreatic ductal adenocarcinoma","C25.9",2,["pancreatic cancer"]],
+  ["hepatocellular-carcinoma","Hepatocellular carcinoma","C22.0",2,["hcc", "liver cancer"]],
+  ["chronic-lymphocytic-leukemia","Chronic lymphocytic leukemia","C91.10",2,["cll"]],
+  ["acute-myeloid-leukemia","Acute myeloid leukemia","C92.00",2,["aml"]],
+  ["diffuse-large-b-cell-lymphoma","Diffuse large B-cell lymphoma","C83.30",2,["dlbcl"]],
+  ["renal-cell-carcinoma","Renal cell carcinoma","C64.9",2,["rcc", "kidney cancer"]],
+  ["urothelial-carcinoma-of-the-bladder","Urothelial carcinoma of the bladder","C67.9",2,["bladder cancer"]],
+  ["epithelial-ovarian-cancer","Epithelial ovarian cancer","C56.9",2,["ovarian cancer"]],
+  ["anemia-of-chronic-kidney-disease","Anemia of chronic kidney disease","D63.1",2,["ckd anemia"]],
+  ["sickle-cell-disease","Sickle cell disease","D57.1",2,["scd", "sickle cell"]],
+  ["immune-thrombocytopenia","Immune thrombocytopenia","D69.3",3,["itp"]],
+  ["cataract","Cataract","H25.9",1,["cataracts"]],
+  ["neovascular-age-related-macular-degeneration","Neovascular age-related macular degeneration","H35.32",1,["wet amd", "amd"]],
+  ["diabetic-retinopathy","Diabetic retinopathy","E11.319",1,[]],
+  ["primary-open-angle-glaucoma","Primary open-angle glaucoma","H40.11",1,["glaucoma"]],
+  ["sensorineural-hearing-loss","Sensorineural hearing loss","H90.5",1,["hearing loss"]],
+  ["dry-eye-disease","Dry eye disease","H04.123",2,["dry eyes"]],
+  ["acute-conjunctivitis","Acute conjunctivitis","H10.9",2,["pink eye", "conjunctivitis"]],
+  ["chronic-rhinosinusitis-with-nasal-polyps","Chronic rhinosinusitis with nasal polyps","J33.9",2,["crswnp", "nasal polyps"]],
+  ["tinnitus","Tinnitus","H93.19",2,["ringing in ears"]],
+  ["geographic-atrophy","Geographic atrophy","H35.31",3,["dry amd"]],
+  ["endometriosis","Endometriosis","N80.9",1,[]],
+  ["uterine-fibroids","Uterine fibroids","D25.9",1,["leiomyoma", "fibroids"]],
+  ["vasomotor-symptoms-of-menopause","Vasomotor symptoms of menopause","N95.1",1,["menopause", "hot flashes"]],
+  ["preeclampsia","Preeclampsia","O14.90",1,[]],
+  ["gestational-diabetes-mellitus","Gestational diabetes mellitus","O24.419",1,["gdm"]],
+  ["abnormal-uterine-bleeding","Abnormal uterine bleeding","N93.9",2,["aub", "heavy periods"]],
+  ["female-infertility","Female infertility","N97.9",2,["infertility"]],
+  ["cervical-dysplasia","Cervical dysplasia","N87.9",2,["cin"]],
+  ["postpartum-hemorrhage","Postpartum hemorrhage","O72.1",2,["pph"]],
+  ["preterm-labor","Preterm labor","O60.00",2,[]],
+  ["pelvic-inflammatory-disease","Pelvic inflammatory disease","N73.9",3,["pid"]],
+  ["acute-bronchiolitis","Acute bronchiolitis","J21.9",1,["bronchiolitis"]],
+  ["attention-deficit-hyperactivity-disorder-pediatric","Attention-deficit/hyperactivity disorder, pediatric","F90.2",1,["pediatric adhd"]],
+  ["pediatric-atopic-dermatitis","Pediatric atopic dermatitis","L20.84",2,["childhood eczema"]],
+  ["croup","Croup","J05.0",2,["laryngotracheobronchitis"]],
+  ["febrile-seizure","Febrile seizure","R56.00",2,[]],
+  ["recurrent-acute-otitis-media","Recurrent acute otitis media","H66.006",2,["recurrent ear infections"]],
+  ["kawasaki-disease","Kawasaki disease","M30.3",3,[]],
+  ["failure-to-thrive","Failure to thrive","R62.51",3,["ftt"]]
+];
+
+  var BY_KEY = {};
+  (function indexCatalog() {
+    CATALOG.forEach(function (c) {
+      BY_KEY[c[1].toLowerCase()] = c;
+      BY_KEY[c[0]] = c;
+      c[4].forEach(function (a) { BY_KEY[a.toLowerCase()] = c; });
+    });
+  })();
+  var TIER_LABEL = { 1: "tier 1 — card first", 2: "tier 2 — common", 3: "tier 3 — specialty" };
+
+  function catalogLookup(text) {
+    var k = String(text).toLowerCase().trim().replace(/\s+/g, " ");
+    if (BY_KEY[k]) return BY_KEY[k];
+    var ks = k.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    if (BY_KEY[ks]) return BY_KEY[ks];
+    // one forgiving pass: a distinctive prefix of exactly one catalog name
+    if (k.length >= 4) {
+      var hits = CATALOG.filter(function (c) { return c[1].toLowerCase().indexOf(k) === 0; });
+      if (hits.length === 1) return hits[0];
+    }
+    return null;
+  }
+
+  function entryToRes(c) {
+    return { condition: c[1], segment: "", icd10: c[2], tier: c[3], slug: c[0],
+             isBrand: false, alternatives: [], confident: true, fromCatalog: true };
+  }
 
   async function resolveCondition(text) {
-    var key = text.toLowerCase().trim();
-    if (LOCAL_MAP[key]) {
-      return { condition: LOCAL_MAP[key], segment: "", isBrand: false, alternatives: [], confident: true };
-    }
+    var hit = catalogLookup(text);
+    if (hit) return entryToRes(hit);
     if (!sample) {
       return { condition: text, segment: "", isBrand: false, alternatives: [], confident: false };
     }
@@ -574,7 +829,7 @@
       "draft goes back through review."]
   };
 
-  function renderPending(name, status) {
+  function renderPending(name, status, slug) {
     var stage_ = STAGES[status] || STAGES.queued;
     stage.textContent = "";
     var box = el("div", "state");
@@ -583,9 +838,26 @@
     h.appendChild(document.createTextNode(stage_[0]));
     box.appendChild(h);
     box.appendChild(el("p", null, stage_[1].replace(/NAME/g, name)));
+    if (lastRes && lastRes.fromCatalog) {
+      var meta = el("p", "catline",
+        "In the 200-condition catalog · " + (TIER_LABEL[lastRes.tier] || "") +
+        (lastRes.icd10 ? " · ICD-10 " + lastRes.icd10 : ""));
+      box.appendChild(meta);
+    }
     var foot = el("p", null, "You can leave this page open — it updates on its own.");
     foot.style.marginTop = "10px";
     box.appendChild(foot);
+
+    // A reviewer looking at this condition can act on it from here, rather than being
+    // shown the same dead end as staff.
+    if (canReview && slug && status !== "queued") {
+      var acts = el("div", "acts");
+      var go = el("button", "ghost", "Review this draft");
+      go.type = "button";
+      go.addEventListener("click", function () { openDraftForReview(slug); });
+      acts.appendChild(go);
+      box.appendChild(acts);
+    }
     stage.appendChild(box);
   }
 
@@ -669,7 +941,8 @@
         return;
       }
       renderResolved(res, screened.clean);
-      var slug = slugify(res.condition + (res.segment ? "-" + res.segment : ""));
+      lastRes = res;
+      var slug = res.slug || slugify(res.condition + (res.segment ? "-" + res.segment : ""));
 
       if (!db) {
         renderUnavailable(res.condition, "This page can't reach its card store — you may be signed out.");
@@ -692,7 +965,7 @@
     stopWatches();
     var cleared = false;
     var status = "queued";
-    function paint() { if (!cleared) renderPending(res.condition, status); }
+    function paint() { if (!cleared) renderPending(res.condition, status, slug); }
 
     var cardDoc = db.doc("cards/" + slug);
     var reqDoc = db.doc("requests/" + slug);
@@ -727,7 +1000,7 @@
   }
 
   async function requestCard(slug, res) {
-    renderPending(res.condition, "queued");
+    renderPending(res.condition, "queued", slug);
     try {
       await db.doc("requests/" + slug).set({
         slug: slug,
@@ -756,13 +1029,41 @@
     return c === "pass" || c === "fixes";
   }
 
+  async function openDraftForReview(slug) {
+    if (!db) return;
+    try {
+      var snap = await db.doc("drafts/" + slug).get();
+      var d = snap && (snap.data ? snap.data() : snap);
+      if (d) { openReview(d); setNotice(null); }
+      else setNotice("No draft exists for that condition yet.");
+    } catch (e) {
+      setNotice("Couldn't open the draft — reviewing needs edit access to this page.", "phi");
+    }
+  }
+
   async function loadQueue() {
     if (!db || !canReview) { show(reviewdock, false); return; }
     try {
-      var q = await db.collection("drafts").where("status", "==", "pending_review").limit(25).get();
+      var q = await db.collection("drafts").where("status", "in",
+        ["pending_review", "returned", "disputed"]).limit(25).get();
       var rows = (q && q.docs ? q.docs.map(function (d) { return d.data ? d.data() : d; }) : q) || [];
       renderQueue(rows);
-    } catch (e) { show(reviewdock, false); }
+      renderReviewBar(rows);
+    } catch (e) { show(reviewdock, false); show(reviewbar, false); }
+  }
+
+  function renderReviewBar(rows) {
+    reviewbar.textContent = "";
+    if (!rows || !rows.length) { show(reviewbar, false); return; }
+    reviewbar.appendChild(el("span", "lbl",
+      rows.length === 1 ? "1 draft awaiting your review" : rows.length + " drafts awaiting your review"));
+    rows.slice(0, 4).forEach(function (d) {
+      var b = el("button", "chip", "Review " + d.condition);
+      b.type = "button";
+      b.addEventListener("click", function () { openReview(d); });
+      reviewbar.appendChild(b);
+    });
+    show(reviewbar, true);
   }
 
   function renderQueue(rows) {
@@ -785,17 +1086,20 @@
     if (!rows.length) {
       dock.appendChild(el("div", "dockempty",
         "No drafts are waiting. A card staff request appears here once research and fact-check " +
-        "have run on it — then it is yours to clear or send back."));
+        "have run on it — then it is yours to release or send back."));
     } else {
       var ul = el("ul", "queue");
       rows.forEach(function (d) {
         var li = el("li");
         var who = el("div", "who");
         who.appendChild(el("div", "nm", d.condition + (d.segment ? " — " + d.segment : "")));
-        who.appendChild(el("div", "mt",
-          "drafted " + String(d.builtAt || "—").slice(0, 10) +
+        var meta = "drafted " + String(d.builtAt || "—").slice(0, 10) +
           " · " + ((d.drugs || []).length) + " agents" +
-          " · " + ((d.news || []).length) + " news items"));
+          " · " + ((d.news || []).length) + " news items";
+        if (d.cost && d.cost.model != null) meta += " · $" + Number(d.cost.model).toFixed(2);
+        if (d.status === "returned") meta += " · sent back " + String(d.returnedAt || "");
+        if (d.status === "disputed") meta += " · disputed " + String(d.disputedAt || "");
+        who.appendChild(el("div", "mt", meta));
         li.appendChild(who);
 
         var right = el("div");
@@ -811,6 +1115,18 @@
         ul.appendChild(li);
       });
       dock.appendChild(ul);
+    }
+    if (coverage) {
+      var cov = el("div", "coverage");
+      [["released", coverage.released], ["in review", coverage.inReview],
+       ["not started", 200 - coverage.released - coverage.inReview]].forEach(function (pair) {
+        var sp = el("span");
+        sp.appendChild(el("b", null, String(pair[1])));
+        sp.appendChild(document.createTextNode(" " + pair[0]));
+        cov.appendChild(sp);
+      });
+      cov.appendChild(el("span", null, "of 200 in catalog"));
+      dock.insertBefore(cov, dock.children[1] || null);
     }
     reviewdock.appendChild(dock);
     show(reviewdock, true);
@@ -833,6 +1149,34 @@
   function reviewPanel(d) {
     var r = d.review || {};
     var wrap = el("div", "reviewpanel");
+    if (d.cost) {
+      var cl = el("div", "costline");
+      function bit(label, val) {
+        var sp = el("span");
+        sp.appendChild(el("b", null, val));
+        sp.appendChild(document.createTextNode(" " + label));
+        cl.appendChild(sp);
+      }
+      if (d.cost.model != null) bit("model cost", "$" + Number(d.cost.model).toFixed(2));
+      if (d.cost.agentTokens) bit("agent tokens", Number(d.cost.agentTokens).toLocaleString());
+      if (d.cost.toolCalls) bit("tool calls", String(d.cost.toolCalls));
+      if (d.cost.wallMinutes) bit("min to build", String(d.cost.wallMinutes));
+      if (d.cost.reviewMinutesEst) bit("min to review (est)", String(d.cost.reviewMinutesEst));
+      wrap.appendChild(cl);
+    }
+    if (d.status === "returned" && d.returnNote) {
+      var rn = el("div", "blockwhy");
+      rn.style.background = "var(--warn-soft)"; rn.style.color = "var(--warn)";
+      rn.appendChild(el("b", null, "Sent back by " + (d.returnedBy || "a reviewer") + " on " + (d.returnedAt || "") + ": "));
+      rn.appendChild(document.createTextNode(d.returnNote));
+      wrap.appendChild(rn);
+    }
+    if (d.status === "disputed" && d.disputeNote) {
+      var dn = el("div", "blockwhy");
+      dn.appendChild(el("b", null, "Fact-check disputed by " + (d.disputedBy || "a reviewer") + " on " + (d.disputedAt || "") + ": "));
+      dn.appendChild(document.createTextNode(d.disputeNote));
+      wrap.appendChild(dn);
+    }
     wrap.appendChild(el("h2", null, "Fact-check report"));
 
     var top = el("div");
@@ -858,14 +1202,36 @@
 
     var blocked = !clearable(r);
     var noVerdict = !(r && r.verdict);
+    var nBlock = (r.blocking || []).length;
+
+    // Say why the button is dead, in text. A disabled control with only a tooltip
+    // leaves a reviewer with one visible action and no explanation for it.
+    if (blocked) {
+      var why = el("div", "blockwhy");
+      if (noVerdict) {
+        why.appendChild(el("b", null, "No fact-check verdict. "));
+        why.appendChild(document.createTextNode(
+          "This draft has not been checked against its sources, so it cannot be released. " +
+          "Nothing is wrong with it — nothing has been verified either."));
+      } else {
+        why.appendChild(el("b", null, nBlock + (nBlock === 1 ? " blocking defect. " : " blocking defects. ")));
+        why.appendChild(document.createTextNode(
+          "This card cannot be released until they are corrected — releasing is not available, " +
+          "by design. If the card otherwise reads well, that is worth saying in the note: send it " +
+          "back asking for these specific corrections. If you think the fact-check is wrong, " +
+          "dispute it instead of sending it back."));
+      }
+      wrap.appendChild(why);
+    }
+
     var acts = el("div", "acts2");
     var ok = el("button", "approve",
-      noVerdict ? "No verdict — cannot clear" : blocked ? "Blocked — cannot clear" : "Clear for staff");
+      noVerdict ? "No verdict — cannot release" : blocked ? "Blocked — cannot release" : "Release to staff");
     ok.type = "button";
     if (blocked) {
       ok.disabled = true;
       ok.title = noVerdict
-        ? "This draft has no fact-check verdict. It cannot be cleared until one is attached."
+        ? "This draft has no fact-check verdict. It cannot be released until one is attached."
         : "The fact-check found a blocking defect. Send it back instead.";
     } else {
       // Two steps: clearing puts this card in front of every staff member at once.
@@ -873,8 +1239,8 @@
       ok.addEventListener("click", function () {
         if (!armed) {
           armed = true;
-          ok.textContent = "Confirm — show this to staff";
-          ok.title = "Click again to clear. This card becomes visible to all staff immediately.";
+          ok.textContent = "Confirm release to staff";
+          ok.title = "Click again to release. This card becomes visible to all staff immediately.";
           return;
         }
         approve(d, ok);
@@ -882,9 +1248,17 @@
     }
     acts.appendChild(ok);
 
-    var back = el("button", "ghost", "Send back");
+    var back = el("button", "ghost", blocked ? "Send back for correction" : "Send back");
     back.type = "button";
     acts.appendChild(back);
+
+    var dispute = null;
+    if (blocked && !noVerdict) {
+      dispute = el("button", "ghost", "Dispute the fact-check");
+      dispute.type = "button";
+      dispute.title = "Records that you believe the fact-check is wrong. It does not release the card.";
+      acts.appendChild(dispute);
+    }
     wrap.appendChild(acts);
 
     var noteWrap = el("div");
@@ -892,20 +1266,38 @@
     noteWrap.style.marginTop = "12px";
     var ta = el("textarea");
     ta.id = "sendback-note-" + d.slug;
-    ta.placeholder = "What is wrong with this draft? The note goes back with it.";
     noteWrap.appendChild(ta);
+    var hint = el("p", "fieldhint");
+    noteWrap.appendChild(hint);
     var confirmRow = el("div", "acts2");
-    var confirmBtn = el("button", "ghost", "Send back with this note");
+    var confirmBtn = el("button", "ghost", "Send");
     confirmBtn.type = "button";
-    confirmBtn.addEventListener("click", function () { sendBack(d, ta.value, confirmBtn); });
     confirmRow.appendChild(confirmBtn);
     noteWrap.appendChild(confirmRow);
     wrap.appendChild(noteWrap);
 
-    back.addEventListener("click", function () {
+    var mode = "return";
+    function openNote(which) {
+      mode = which;
+      if (which === "return") {
+        ta.placeholder = "What must change before this can be released?";
+        hint.textContent = "Goes to whoever corrects the draft. Name the claim and what is wrong with it.";
+        confirmBtn.textContent = "Send back for correction";
+      } else {
+        ta.placeholder = "Which finding do you believe is wrong, and why?";
+        hint.textContent = "Records your disagreement for a second reviewer. This does not release the card.";
+        confirmBtn.textContent = "Record this dispute";
+      }
       noteWrap.hidden = false;
       ta.focus();
+    }
+    confirmBtn.addEventListener("click", function () {
+      if (!ta.value.trim()) { hint.textContent = "Add a note first — the next person needs to know why."; return; }
+      if (mode === "return") sendBack(d, ta.value, confirmBtn);
+      else disputeCheck(d, ta.value, confirmBtn);
     });
+    back.addEventListener("click", function () { openNote("return"); });
+    if (dispute) dispute.addEventListener("click", function () { openNote("dispute"); });
 
     return wrap;
   }
@@ -917,7 +1309,7 @@
     var b = el("div", "banner review");
     b.appendChild(el("b", null, "Draft — not cleared"));
     b.appendChild(document.createTextNode(
-      " Staff cannot see this card. Check it against the report below, then clear it or send it back."
+      " Staff cannot see this card. Check it against the report below, then release it or send it back."
     ));
     art.insertBefore(b, art.firstChild);
     art.appendChild(reviewPanel(d));
@@ -927,7 +1319,7 @@
 
   async function approve(d, btn) {
     btn.disabled = true;
-    btn.textContent = "Clearing…";
+    btn.textContent = "Releasing…";
     var today = new Date().toISOString().slice(0, 10);
     var card = {
       slug: d.slug, condition: d.condition, segment: d.segment || "", icd10: d.icd10 || "",
@@ -940,12 +1332,34 @@
       await db.doc("drafts/" + d.slug).update({ status: "approved", approvedAt: today, approvedBy: card.clearedBy });
       try { await db.doc("requests/" + d.slug).update({ status: "cleared" }); } catch (e) {}
       renderCard(card);
-      setNotice(null);
+      setNotice("Released. Every staff member can see this card now.", "ok");
       loadQueue();
     } catch (e) {
       btn.disabled = false;
-      btn.textContent = "Clear for staff";
-      setNotice("Couldn't clear the card — clearing needs edit access to this page.", "phi");
+      btn.textContent = "Release to staff";
+      setNotice("Couldn't release the card — releasing needs edit access to this page.", "phi");
+    }
+  }
+
+  // Deliberately cannot release. A reviewer may judge the fact-check wrong, but on
+  // provider-facing clinical content that routes to a second opinion, not to staff.
+  async function disputeCheck(d, note, btn) {
+    btn.disabled = true;
+    btn.textContent = "Recording…";
+    var today = new Date().toISOString().slice(0, 10);
+    try {
+      await db.doc("drafts/" + d.slug).update({
+        status: "disputed", disputedAt: today,
+        disputedBy: reviewerName || "reviewer",
+        disputeNote: String(note || "").slice(0, 2000)
+      });
+      try { await db.doc("requests/" + d.slug).update({ status: "in_review" }); } catch (e) {}
+      setNotice("Dispute recorded. The card is not released and is waiting on a second reviewer.", "ok");
+      loadQueue();
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = "Record this dispute";
+      setNotice("Couldn't record the dispute — that needs edit access to this page.", "phi");
     }
   }
 
@@ -960,7 +1374,7 @@
         returnNote: String(note || "").slice(0, 2000)
       });
       try { await db.doc("requests/" + d.slug).update({ status: "returned" }); } catch (e) {}
-      renderPending(d.condition, "returned");
+      renderPending(d.condition, "returned", d.slug);
       loadQueue();
     } catch (e) {
       btn.disabled = false;
@@ -1000,7 +1414,15 @@
       if (rows.length) renderCard(rows[0]);
     } catch (e) { /* empty store is the normal first-run case */ }
 
-    if (canReview) loadQueue();
+    if (canReview) {
+      try {
+        var cl = await db.collection("cards").where("status", "==", "cleared").limit(300).get();
+        var dr = await db.collection("drafts").where("status", "==", "pending_review").limit(300).get();
+        var n = function (q) { return (q && q.docs ? q.docs.length : (q || []).length) || 0; };
+        coverage = { released: n(cl), inReview: n(dr) };
+      } catch (e) { coverage = null; }
+      loadQueue();
+    }
   })();
 })();
 </script>

@@ -1,0 +1,2060 @@
+{
+  "version": 1,
+  "builtAt": "2026-10-12",
+  "count": 200,
+  "basis": "Constructed from common US ambulatory and specialty presentations, weighted toward conditions a health system makes service-line, drug-spend and capability decisions about. NOT a ranked extract from a single frequency dataset (NAMCS, HCUP or claims) - the ordering is editorial. ICD-10 codes are reference values to confirm against your own code set before operational use.",
+  "tiers": {
+    "1": "highest frequency or strategic impact - card these first",
+    "2": "common",
+    "3": "lower frequency, often specialty-referred"
+  },
+  "conditions": [
+    {
+      "slug": "hypertension",
+      "condition": "Hypertension",
+      "icd10": "I10",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "htn",
+        "high blood pressure"
+      ]
+    },
+    {
+      "slug": "hyperlipidemia",
+      "condition": "Hyperlipidemia",
+      "icd10": "E78.5",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "high cholesterol",
+        "dyslipidemia"
+      ]
+    },
+    {
+      "slug": "coronary-artery-disease",
+      "condition": "Coronary artery disease",
+      "icd10": "I25.10",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "cad",
+        "ischemic heart disease"
+      ]
+    },
+    {
+      "slug": "heart-failure-with-reduced-ejection-fraction",
+      "condition": "Heart failure with reduced ejection fraction",
+      "icd10": "I50.2",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "hfref",
+        "chf",
+        "systolic heart failure"
+      ]
+    },
+    {
+      "slug": "heart-failure-with-preserved-ejection-fraction",
+      "condition": "Heart failure with preserved ejection fraction",
+      "icd10": "I50.3",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "hfpef",
+        "diastolic heart failure"
+      ]
+    },
+    {
+      "slug": "atrial-fibrillation",
+      "condition": "Atrial fibrillation",
+      "icd10": "I48.91",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "afib",
+        "af",
+        "a fib"
+      ]
+    },
+    {
+      "slug": "ischemic-stroke",
+      "condition": "Ischemic stroke",
+      "icd10": "I63.9",
+      "category": "Cardiovascular",
+      "tier": 1,
+      "aliases": [
+        "stroke",
+        "cva",
+        "cerebral infarction"
+      ]
+    },
+    {
+      "slug": "transient-ischemic-attack",
+      "condition": "Transient ischemic attack",
+      "icd10": "G45.9",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "tia",
+        "mini stroke"
+      ]
+    },
+    {
+      "slug": "angina-pectoris",
+      "condition": "Angina pectoris",
+      "icd10": "I20.9",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "angina"
+      ]
+    },
+    {
+      "slug": "peripheral-artery-disease",
+      "condition": "Peripheral artery disease",
+      "icd10": "I73.9",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "pad",
+        "peripheral vascular disease"
+      ]
+    },
+    {
+      "slug": "deep-vein-thrombosis",
+      "condition": "Deep vein thrombosis",
+      "icd10": "I82.40",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "dvt"
+      ]
+    },
+    {
+      "slug": "pulmonary-embolism",
+      "condition": "Pulmonary embolism",
+      "icd10": "I26.99",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "pe"
+      ]
+    },
+    {
+      "slug": "aortic-stenosis",
+      "condition": "Aortic stenosis",
+      "icd10": "I35.0",
+      "category": "Cardiovascular",
+      "tier": 2,
+      "aliases": [
+        "aortic valve stenosis"
+      ]
+    },
+    {
+      "slug": "mitral-regurgitation",
+      "condition": "Mitral regurgitation",
+      "icd10": "I34.0",
+      "category": "Cardiovascular",
+      "tier": 3,
+      "aliases": [
+        "mr",
+        "mitral valve regurgitation"
+      ]
+    },
+    {
+      "slug": "hypertrophic-cardiomyopathy",
+      "condition": "Hypertrophic cardiomyopathy",
+      "icd10": "I42.2",
+      "category": "Cardiovascular",
+      "tier": 3,
+      "aliases": [
+        "hcm"
+      ]
+    },
+    {
+      "slug": "transthyretin-amyloid-cardiomyopathy",
+      "condition": "Transthyretin amyloid cardiomyopathy",
+      "icd10": "E85.82",
+      "category": "Cardiovascular",
+      "tier": 3,
+      "aliases": [
+        "attr-cm",
+        "cardiac amyloidosis"
+      ]
+    },
+    {
+      "slug": "pulmonary-arterial-hypertension",
+      "condition": "Pulmonary arterial hypertension",
+      "icd10": "I27.20",
+      "category": "Cardiovascular",
+      "tier": 3,
+      "aliases": [
+        "pah"
+      ]
+    },
+    {
+      "slug": "cardiac-arrest",
+      "condition": "Cardiac arrest",
+      "icd10": "I46.9",
+      "category": "Cardiovascular",
+      "tier": 3,
+      "aliases": [
+        "sudden cardiac arrest"
+      ]
+    },
+    {
+      "slug": "type-2-diabetes-mellitus",
+      "condition": "Type 2 diabetes mellitus",
+      "icd10": "E11.9",
+      "category": "Endocrine and metabolic",
+      "tier": 1,
+      "aliases": [
+        "t2dm",
+        "dm2",
+        "diabetes 2",
+        "type 2 diabetes",
+        "sugar diabetes"
+      ]
+    },
+    {
+      "slug": "type-1-diabetes-mellitus",
+      "condition": "Type 1 diabetes mellitus",
+      "icd10": "E10.9",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": [
+        "t1dm",
+        "dm1",
+        "type 1 diabetes"
+      ]
+    },
+    {
+      "slug": "prediabetes",
+      "condition": "Prediabetes",
+      "icd10": "R73.03",
+      "category": "Endocrine and metabolic",
+      "tier": 1,
+      "aliases": [
+        "impaired glucose tolerance"
+      ]
+    },
+    {
+      "slug": "obesity",
+      "condition": "Obesity",
+      "icd10": "E66.9",
+      "category": "Endocrine and metabolic",
+      "tier": 1,
+      "aliases": [
+        "adiposity"
+      ]
+    },
+    {
+      "slug": "hypothyroidism",
+      "condition": "Hypothyroidism",
+      "icd10": "E03.9",
+      "category": "Endocrine and metabolic",
+      "tier": 1,
+      "aliases": [
+        "underactive thyroid",
+        "hashimoto"
+      ]
+    },
+    {
+      "slug": "hyperthyroidism",
+      "condition": "Hyperthyroidism",
+      "icd10": "E05.90",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": [
+        "overactive thyroid",
+        "graves"
+      ]
+    },
+    {
+      "slug": "osteoporosis",
+      "condition": "Osteoporosis",
+      "icd10": "M81.0",
+      "category": "Endocrine and metabolic",
+      "tier": 1,
+      "aliases": [
+        "bone loss"
+      ]
+    },
+    {
+      "slug": "diabetic-peripheral-neuropathy",
+      "condition": "Diabetic peripheral neuropathy",
+      "icd10": "E11.40",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": [
+        "diabetic neuropathy"
+      ]
+    },
+    {
+      "slug": "gout",
+      "condition": "Gout",
+      "icd10": "M10.9",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": [
+        "gouty arthritis"
+      ]
+    },
+    {
+      "slug": "metabolic-syndrome",
+      "condition": "Metabolic syndrome",
+      "icd10": "E88.81",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "polycystic-ovary-syndrome",
+      "condition": "Polycystic ovary syndrome",
+      "icd10": "E28.2",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": [
+        "pcos"
+      ]
+    },
+    {
+      "slug": "vitamin-d-deficiency",
+      "condition": "Vitamin D deficiency",
+      "icd10": "E55.9",
+      "category": "Endocrine and metabolic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "primary-adrenal-insufficiency",
+      "condition": "Primary adrenal insufficiency",
+      "icd10": "E27.1",
+      "category": "Endocrine and metabolic",
+      "tier": 3,
+      "aliases": [
+        "addison disease"
+      ]
+    },
+    {
+      "slug": "asthma",
+      "condition": "Asthma",
+      "icd10": "J45.909",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "chronic-obstructive-pulmonary-disease",
+      "condition": "Chronic obstructive pulmonary disease",
+      "icd10": "J44.9",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "copd",
+        "emphysema"
+      ]
+    },
+    {
+      "slug": "community-acquired-pneumonia",
+      "condition": "Community-acquired pneumonia",
+      "icd10": "J18.9",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "cap",
+        "pneumonia"
+      ]
+    },
+    {
+      "slug": "acute-bronchitis",
+      "condition": "Acute bronchitis",
+      "icd10": "J20.9",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "chest cold"
+      ]
+    },
+    {
+      "slug": "influenza",
+      "condition": "Influenza",
+      "icd10": "J11.1",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "flu"
+      ]
+    },
+    {
+      "slug": "covid-19",
+      "condition": "COVID-19",
+      "icd10": "U07.1",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "covid",
+        "sars-cov-2"
+      ]
+    },
+    {
+      "slug": "obstructive-sleep-apnea",
+      "condition": "Obstructive sleep apnea",
+      "icd10": "G47.33",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "osa",
+        "sleep apnea"
+      ]
+    },
+    {
+      "slug": "allergic-rhinitis",
+      "condition": "Allergic rhinitis",
+      "icd10": "J30.9",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "hay fever",
+        "seasonal allergies"
+      ]
+    },
+    {
+      "slug": "acute-sinusitis",
+      "condition": "Acute sinusitis",
+      "icd10": "J01.90",
+      "category": "Respiratory",
+      "tier": 1,
+      "aliases": [
+        "sinus infection"
+      ]
+    },
+    {
+      "slug": "respiratory-syncytial-virus-infection",
+      "condition": "Respiratory syncytial virus infection",
+      "icd10": "J12.1",
+      "category": "Respiratory",
+      "tier": 2,
+      "aliases": [
+        "rsv"
+      ]
+    },
+    {
+      "slug": "chronic-cough",
+      "condition": "Chronic cough",
+      "icd10": "R05.3",
+      "category": "Respiratory",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "idiopathic-pulmonary-fibrosis",
+      "condition": "Idiopathic pulmonary fibrosis",
+      "icd10": "J84.112",
+      "category": "Respiratory",
+      "tier": 2,
+      "aliases": [
+        "ipf"
+      ]
+    },
+    {
+      "slug": "pulmonary-nodule",
+      "condition": "Pulmonary nodule",
+      "icd10": "R91.1",
+      "category": "Respiratory",
+      "tier": 2,
+      "aliases": [
+        "lung nodule"
+      ]
+    },
+    {
+      "slug": "bronchiectasis",
+      "condition": "Bronchiectasis",
+      "icd10": "J47.9",
+      "category": "Respiratory",
+      "tier": 3,
+      "aliases": []
+    },
+    {
+      "slug": "pertussis",
+      "condition": "Pertussis",
+      "icd10": "A37.90",
+      "category": "Respiratory",
+      "tier": 3,
+      "aliases": [
+        "whooping cough"
+      ]
+    },
+    {
+      "slug": "gastroesophageal-reflux-disease",
+      "condition": "Gastroesophageal reflux disease",
+      "icd10": "K21.9",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "gerd",
+        "acid reflux",
+        "heartburn"
+      ]
+    },
+    {
+      "slug": "irritable-bowel-syndrome",
+      "condition": "Irritable bowel syndrome",
+      "icd10": "K58.9",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "ibs"
+      ]
+    },
+    {
+      "slug": "chronic-constipation",
+      "condition": "Chronic constipation",
+      "icd10": "K59.00",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "constipation"
+      ]
+    },
+    {
+      "slug": "ulcerative-colitis",
+      "condition": "Ulcerative colitis",
+      "icd10": "K51.90",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "uc",
+        "ulc colitis"
+      ]
+    },
+    {
+      "slug": "crohn-disease",
+      "condition": "Crohn disease",
+      "icd10": "K50.90",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "crohns",
+        "crohn's"
+      ]
+    },
+    {
+      "slug": "metabolic-dysfunction-associated-steatotic-liver-disease",
+      "condition": "Metabolic dysfunction-associated steatotic liver disease",
+      "icd10": "K76.0",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 1,
+      "aliases": [
+        "masld",
+        "nafld",
+        "fatty liver"
+      ]
+    },
+    {
+      "slug": "metabolic-dysfunction-associated-steatohepatitis",
+      "condition": "Metabolic dysfunction-associated steatohepatitis",
+      "icd10": "K75.81",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "mash",
+        "nash"
+      ]
+    },
+    {
+      "slug": "peptic-ulcer-disease",
+      "condition": "Peptic ulcer disease",
+      "icd10": "K27.9",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "pud",
+        "stomach ulcer"
+      ]
+    },
+    {
+      "slug": "helicobacter-pylori-infection",
+      "condition": "Helicobacter pylori infection",
+      "icd10": "B96.81",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "h pylori"
+      ]
+    },
+    {
+      "slug": "celiac-disease",
+      "condition": "Celiac disease",
+      "icd10": "K90.0",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "gluten enteropathy"
+      ]
+    },
+    {
+      "slug": "cirrhosis",
+      "condition": "Cirrhosis",
+      "icd10": "K74.60",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "liver cirrhosis"
+      ]
+    },
+    {
+      "slug": "chronic-hepatitis-c",
+      "condition": "Chronic hepatitis C",
+      "icd10": "B18.2",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "hep c",
+        "hcv"
+      ]
+    },
+    {
+      "slug": "chronic-hepatitis-b",
+      "condition": "Chronic hepatitis B",
+      "icd10": "B18.1",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "hep b",
+        "hbv"
+      ]
+    },
+    {
+      "slug": "diverticulitis",
+      "condition": "Diverticulitis",
+      "icd10": "K57.92",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "cholelithiasis",
+      "condition": "Cholelithiasis",
+      "icd10": "K80.20",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "gallstones"
+      ]
+    },
+    {
+      "slug": "acute-pancreatitis",
+      "condition": "Acute pancreatitis",
+      "icd10": "K85.90",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 2,
+      "aliases": [
+        "pancreatitis"
+      ]
+    },
+    {
+      "slug": "gastroparesis",
+      "condition": "Gastroparesis",
+      "icd10": "K31.84",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 3,
+      "aliases": [
+        "delayed gastric emptying"
+      ]
+    },
+    {
+      "slug": "eosinophilic-esophagitis",
+      "condition": "Eosinophilic esophagitis",
+      "icd10": "K20.0",
+      "category": "Gastrointestinal and hepatic",
+      "tier": 3,
+      "aliases": [
+        "eoe"
+      ]
+    },
+    {
+      "slug": "osteoarthritis-of-the-knee",
+      "condition": "Osteoarthritis of the knee",
+      "icd10": "M17.9",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 1,
+      "aliases": [
+        "knee oa",
+        "knee arthritis"
+      ]
+    },
+    {
+      "slug": "osteoarthritis-of-the-hip",
+      "condition": "Osteoarthritis of the hip",
+      "icd10": "M16.9",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 1,
+      "aliases": [
+        "hip oa",
+        "hip arthritis"
+      ]
+    },
+    {
+      "slug": "chronic-low-back-pain",
+      "condition": "Chronic low back pain",
+      "icd10": "M54.50",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 1,
+      "aliases": [
+        "low back pain",
+        "lbp"
+      ]
+    },
+    {
+      "slug": "neck-pain",
+      "condition": "Neck pain",
+      "icd10": "M54.2",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 1,
+      "aliases": [
+        "cervicalgia"
+      ]
+    },
+    {
+      "slug": "rheumatoid-arthritis",
+      "condition": "Rheumatoid arthritis",
+      "icd10": "M06.9",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 1,
+      "aliases": [
+        "ra"
+      ]
+    },
+    {
+      "slug": "psoriatic-arthritis",
+      "condition": "Psoriatic arthritis",
+      "icd10": "L40.50",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "psa"
+      ]
+    },
+    {
+      "slug": "ankylosing-spondylitis",
+      "condition": "Ankylosing spondylitis",
+      "icd10": "M45.9",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "axial spondyloarthritis"
+      ]
+    },
+    {
+      "slug": "systemic-lupus-erythematosus",
+      "condition": "Systemic lupus erythematosus",
+      "icd10": "M32.9",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "lupus",
+        "sle"
+      ]
+    },
+    {
+      "slug": "fibromyalgia",
+      "condition": "Fibromyalgia",
+      "icd10": "M79.7",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "rotator-cuff-syndrome",
+      "condition": "Rotator cuff syndrome",
+      "icd10": "M75.100",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "rotator cuff tear",
+        "shoulder impingement"
+      ]
+    },
+    {
+      "slug": "carpal-tunnel-syndrome",
+      "condition": "Carpal tunnel syndrome",
+      "icd10": "G56.00",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "cts"
+      ]
+    },
+    {
+      "slug": "plantar-fasciitis",
+      "condition": "Plantar fasciitis",
+      "icd10": "M72.2",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "heel pain"
+      ]
+    },
+    {
+      "slug": "lumbar-radiculopathy",
+      "condition": "Lumbar radiculopathy",
+      "icd10": "M54.16",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 2,
+      "aliases": [
+        "sciatica",
+        "pinched nerve"
+      ]
+    },
+    {
+      "slug": "polymyalgia-rheumatica",
+      "condition": "Polymyalgia rheumatica",
+      "icd10": "M35.3",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 3,
+      "aliases": [
+        "pmr"
+      ]
+    },
+    {
+      "slug": "giant-cell-arteritis",
+      "condition": "Giant cell arteritis",
+      "icd10": "M31.6",
+      "category": "Musculoskeletal and rheumatologic",
+      "tier": 3,
+      "aliases": [
+        "gca",
+        "temporal arteritis"
+      ]
+    },
+    {
+      "slug": "migraine",
+      "condition": "Migraine",
+      "icd10": "G43.909",
+      "category": "Neurologic",
+      "tier": 1,
+      "aliases": [
+        "migraines",
+        "migraine headache"
+      ]
+    },
+    {
+      "slug": "alzheimer-disease",
+      "condition": "Alzheimer disease",
+      "icd10": "G30.9",
+      "category": "Neurologic",
+      "tier": 1,
+      "aliases": [
+        "alzheimers",
+        "dementia"
+      ]
+    },
+    {
+      "slug": "mild-cognitive-impairment",
+      "condition": "Mild cognitive impairment",
+      "icd10": "G31.84",
+      "category": "Neurologic",
+      "tier": 1,
+      "aliases": [
+        "mci"
+      ]
+    },
+    {
+      "slug": "parkinson-disease",
+      "condition": "Parkinson disease",
+      "icd10": "G20",
+      "category": "Neurologic",
+      "tier": 1,
+      "aliases": [
+        "parkinsons",
+        "pd"
+      ]
+    },
+    {
+      "slug": "multiple-sclerosis",
+      "condition": "Multiple sclerosis",
+      "icd10": "G35",
+      "category": "Neurologic",
+      "tier": 1,
+      "aliases": [
+        "ms"
+      ]
+    },
+    {
+      "slug": "epilepsy",
+      "condition": "Epilepsy",
+      "icd10": "G40.909",
+      "category": "Neurologic",
+      "tier": 2,
+      "aliases": [
+        "seizure disorder"
+      ]
+    },
+    {
+      "slug": "tension-type-headache",
+      "condition": "Tension-type headache",
+      "icd10": "G44.209",
+      "category": "Neurologic",
+      "tier": 2,
+      "aliases": [
+        "tension headache"
+      ]
+    },
+    {
+      "slug": "peripheral-neuropathy",
+      "condition": "Peripheral neuropathy",
+      "icd10": "G62.9",
+      "category": "Neurologic",
+      "tier": 2,
+      "aliases": [
+        "neuropathy"
+      ]
+    },
+    {
+      "slug": "benign-paroxysmal-positional-vertigo",
+      "condition": "Benign paroxysmal positional vertigo",
+      "icd10": "H81.10",
+      "category": "Neurologic",
+      "tier": 2,
+      "aliases": [
+        "bppv",
+        "vertigo"
+      ]
+    },
+    {
+      "slug": "concussion",
+      "condition": "Concussion",
+      "icd10": "S06.0X0A",
+      "category": "Neurologic",
+      "tier": 2,
+      "aliases": [
+        "mild tbi",
+        "head injury"
+      ]
+    },
+    {
+      "slug": "restless-legs-syndrome",
+      "condition": "Restless legs syndrome",
+      "icd10": "G25.81",
+      "category": "Neurologic",
+      "tier": 3,
+      "aliases": [
+        "rls"
+      ]
+    },
+    {
+      "slug": "myasthenia-gravis",
+      "condition": "Myasthenia gravis",
+      "icd10": "G70.00",
+      "category": "Neurologic",
+      "tier": 3,
+      "aliases": [
+        "mg"
+      ]
+    },
+    {
+      "slug": "amyotrophic-lateral-sclerosis",
+      "condition": "Amyotrophic lateral sclerosis",
+      "icd10": "G12.21",
+      "category": "Neurologic",
+      "tier": 3,
+      "aliases": [
+        "als",
+        "lou gehrig"
+      ]
+    },
+    {
+      "slug": "spinal-muscular-atrophy",
+      "condition": "Spinal muscular atrophy",
+      "icd10": "G12.1",
+      "category": "Neurologic",
+      "tier": 3,
+      "aliases": [
+        "sma"
+      ]
+    },
+    {
+      "slug": "major-depressive-disorder",
+      "condition": "Major depressive disorder",
+      "icd10": "F32.9",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "depression",
+        "mdd"
+      ]
+    },
+    {
+      "slug": "generalized-anxiety-disorder",
+      "condition": "Generalized anxiety disorder",
+      "icd10": "F41.1",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "anxiety",
+        "gad"
+      ]
+    },
+    {
+      "slug": "bipolar-disorder",
+      "condition": "Bipolar disorder",
+      "icd10": "F31.9",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "bipolar",
+        "manic depression"
+      ]
+    },
+    {
+      "slug": "schizophrenia",
+      "condition": "Schizophrenia",
+      "icd10": "F20.9",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "post-traumatic-stress-disorder",
+      "condition": "Post-traumatic stress disorder",
+      "icd10": "F43.10",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "ptsd"
+      ]
+    },
+    {
+      "slug": "attention-deficit-hyperactivity-disorder",
+      "condition": "Attention-deficit/hyperactivity disorder",
+      "icd10": "F90.9",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "adhd",
+        "add"
+      ]
+    },
+    {
+      "slug": "autism-spectrum-disorder",
+      "condition": "Autism spectrum disorder",
+      "icd10": "F84.0",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "asd",
+        "autism"
+      ]
+    },
+    {
+      "slug": "alcohol-use-disorder",
+      "condition": "Alcohol use disorder",
+      "icd10": "F10.20",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "aud",
+        "alcoholism"
+      ]
+    },
+    {
+      "slug": "opioid-use-disorder",
+      "condition": "Opioid use disorder",
+      "icd10": "F11.20",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "oud",
+        "opioid addiction"
+      ]
+    },
+    {
+      "slug": "tobacco-use-disorder",
+      "condition": "Tobacco use disorder",
+      "icd10": "F17.200",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "smoking",
+        "nicotine dependence"
+      ]
+    },
+    {
+      "slug": "chronic-insomnia",
+      "condition": "Chronic insomnia",
+      "icd10": "G47.00",
+      "category": "Psychiatric and behavioral",
+      "tier": 1,
+      "aliases": [
+        "insomnia"
+      ]
+    },
+    {
+      "slug": "panic-disorder",
+      "condition": "Panic disorder",
+      "icd10": "F41.0",
+      "category": "Psychiatric and behavioral",
+      "tier": 2,
+      "aliases": [
+        "panic attacks"
+      ]
+    },
+    {
+      "slug": "obsessive-compulsive-disorder",
+      "condition": "Obsessive-compulsive disorder",
+      "icd10": "F42.9",
+      "category": "Psychiatric and behavioral",
+      "tier": 2,
+      "aliases": [
+        "ocd"
+      ]
+    },
+    {
+      "slug": "anorexia-nervosa",
+      "condition": "Anorexia nervosa",
+      "icd10": "F50.00",
+      "category": "Psychiatric and behavioral",
+      "tier": 2,
+      "aliases": [
+        "anorexia",
+        "eating disorder"
+      ]
+    },
+    {
+      "slug": "postpartum-depression",
+      "condition": "Postpartum depression",
+      "icd10": "F53.0",
+      "category": "Psychiatric and behavioral",
+      "tier": 2,
+      "aliases": [
+        "ppd"
+      ]
+    },
+    {
+      "slug": "stimulant-use-disorder",
+      "condition": "Stimulant use disorder",
+      "icd10": "F15.20",
+      "category": "Psychiatric and behavioral",
+      "tier": 3,
+      "aliases": [
+        "methamphetamine use disorder"
+      ]
+    },
+    {
+      "slug": "urinary-tract-infection",
+      "condition": "Urinary tract infection",
+      "icd10": "N39.0",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "uti",
+        "bladder infection"
+      ]
+    },
+    {
+      "slug": "cellulitis",
+      "condition": "Cellulitis",
+      "icd10": "L03.90",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "skin infection"
+      ]
+    },
+    {
+      "slug": "streptococcal-pharyngitis",
+      "condition": "Streptococcal pharyngitis",
+      "icd10": "J02.0",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "strep throat",
+        "sore throat"
+      ]
+    },
+    {
+      "slug": "acute-otitis-media",
+      "condition": "Acute otitis media",
+      "icd10": "H66.90",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "ear infection",
+        "aom"
+      ]
+    },
+    {
+      "slug": "measles",
+      "condition": "Measles",
+      "icd10": "B05.9",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "rubeola",
+        "measles virus"
+      ]
+    },
+    {
+      "slug": "herpes-zoster",
+      "condition": "Herpes zoster",
+      "icd10": "B02.9",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "shingles"
+      ]
+    },
+    {
+      "slug": "hiv-infection",
+      "condition": "HIV infection",
+      "icd10": "B20",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": [
+        "hiv",
+        "aids"
+      ]
+    },
+    {
+      "slug": "sepsis",
+      "condition": "Sepsis",
+      "icd10": "A41.9",
+      "category": "Infectious disease",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "varicella",
+      "condition": "Varicella",
+      "icd10": "B01.9",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "chickenpox"
+      ]
+    },
+    {
+      "slug": "latent-tuberculosis-infection",
+      "condition": "Latent tuberculosis infection",
+      "icd10": "R76.11",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "ltbi",
+        "latent tb"
+      ]
+    },
+    {
+      "slug": "active-pulmonary-tuberculosis",
+      "condition": "Active pulmonary tuberculosis",
+      "icd10": "A15.0",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "tb",
+        "tuberculosis"
+      ]
+    },
+    {
+      "slug": "clostridioides-difficile-infection",
+      "condition": "Clostridioides difficile infection",
+      "icd10": "A04.7",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "c diff",
+        "cdi"
+      ]
+    },
+    {
+      "slug": "lyme-disease",
+      "condition": "Lyme disease",
+      "icd10": "A69.20",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "borreliosis"
+      ]
+    },
+    {
+      "slug": "chlamydial-infection",
+      "condition": "Chlamydial infection",
+      "icd10": "A56.00",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "chlamydia"
+      ]
+    },
+    {
+      "slug": "gonococcal-infection",
+      "condition": "Gonococcal infection",
+      "icd10": "A54.00",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": [
+        "gonorrhea"
+      ]
+    },
+    {
+      "slug": "syphilis",
+      "condition": "Syphilis",
+      "icd10": "A53.9",
+      "category": "Infectious disease",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "osteomyelitis",
+      "condition": "Osteomyelitis",
+      "icd10": "M86.9",
+      "category": "Infectious disease",
+      "tier": 3,
+      "aliases": [
+        "bone infection"
+      ]
+    },
+    {
+      "slug": "infective-endocarditis",
+      "condition": "Infective endocarditis",
+      "icd10": "I33.0",
+      "category": "Infectious disease",
+      "tier": 3,
+      "aliases": [
+        "endocarditis"
+      ]
+    },
+    {
+      "slug": "mpox",
+      "condition": "Mpox",
+      "icd10": "B04",
+      "category": "Infectious disease",
+      "tier": 3,
+      "aliases": [
+        "monkeypox"
+      ]
+    },
+    {
+      "slug": "atopic-dermatitis",
+      "condition": "Atopic dermatitis",
+      "icd10": "L20.9",
+      "category": "Dermatologic",
+      "tier": 1,
+      "aliases": [
+        "eczema"
+      ]
+    },
+    {
+      "slug": "psoriasis",
+      "condition": "Psoriasis",
+      "icd10": "L40.0",
+      "category": "Dermatologic",
+      "tier": 1,
+      "aliases": [
+        "plaque psoriasis"
+      ]
+    },
+    {
+      "slug": "acne-vulgaris",
+      "condition": "Acne vulgaris",
+      "icd10": "L70.0",
+      "category": "Dermatologic",
+      "tier": 1,
+      "aliases": [
+        "acne"
+      ]
+    },
+    {
+      "slug": "melanoma",
+      "condition": "Melanoma",
+      "icd10": "C43.9",
+      "category": "Dermatologic",
+      "tier": 1,
+      "aliases": [
+        "malignant melanoma"
+      ]
+    },
+    {
+      "slug": "rosacea",
+      "condition": "Rosacea",
+      "icd10": "L71.9",
+      "category": "Dermatologic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "chronic-spontaneous-urticaria",
+      "condition": "Chronic spontaneous urticaria",
+      "icd10": "L50.1",
+      "category": "Dermatologic",
+      "tier": 2,
+      "aliases": [
+        "hives",
+        "urticaria"
+      ]
+    },
+    {
+      "slug": "actinic-keratosis",
+      "condition": "Actinic keratosis",
+      "icd10": "L57.0",
+      "category": "Dermatologic",
+      "tier": 2,
+      "aliases": [
+        "ak"
+      ]
+    },
+    {
+      "slug": "basal-cell-carcinoma",
+      "condition": "Basal cell carcinoma",
+      "icd10": "C44.91",
+      "category": "Dermatologic",
+      "tier": 2,
+      "aliases": [
+        "bcc"
+      ]
+    },
+    {
+      "slug": "hidradenitis-suppurativa",
+      "condition": "Hidradenitis suppurativa",
+      "icd10": "L73.2",
+      "category": "Dermatologic",
+      "tier": 3,
+      "aliases": [
+        "hs"
+      ]
+    },
+    {
+      "slug": "alopecia-areata",
+      "condition": "Alopecia areata",
+      "icd10": "L63.9",
+      "category": "Dermatologic",
+      "tier": 3,
+      "aliases": [
+        "hair loss"
+      ]
+    },
+    {
+      "slug": "vitiligo",
+      "condition": "Vitiligo",
+      "icd10": "L80",
+      "category": "Dermatologic",
+      "tier": 3,
+      "aliases": []
+    },
+    {
+      "slug": "chronic-kidney-disease",
+      "condition": "Chronic kidney disease",
+      "icd10": "N18.9",
+      "category": "Renal and genitourinary",
+      "tier": 1,
+      "aliases": [
+        "ckd",
+        "renal insufficiency"
+      ]
+    },
+    {
+      "slug": "diabetic-kidney-disease",
+      "condition": "Diabetic kidney disease",
+      "icd10": "E11.21",
+      "category": "Renal and genitourinary",
+      "tier": 1,
+      "aliases": [
+        "diabetic nephropathy"
+      ]
+    },
+    {
+      "slug": "acute-kidney-injury",
+      "condition": "Acute kidney injury",
+      "icd10": "N17.9",
+      "category": "Renal and genitourinary",
+      "tier": 1,
+      "aliases": [
+        "aki",
+        "acute renal failure"
+      ]
+    },
+    {
+      "slug": "nephrolithiasis",
+      "condition": "Nephrolithiasis",
+      "icd10": "N20.0",
+      "category": "Renal and genitourinary",
+      "tier": 1,
+      "aliases": [
+        "kidney stones",
+        "renal calculi"
+      ]
+    },
+    {
+      "slug": "benign-prostatic-hyperplasia",
+      "condition": "Benign prostatic hyperplasia",
+      "icd10": "N40.0",
+      "category": "Renal and genitourinary",
+      "tier": 1,
+      "aliases": [
+        "bph",
+        "enlarged prostate"
+      ]
+    },
+    {
+      "slug": "end-stage-renal-disease",
+      "condition": "End-stage renal disease",
+      "icd10": "N18.6",
+      "category": "Renal and genitourinary",
+      "tier": 2,
+      "aliases": [
+        "esrd",
+        "dialysis"
+      ]
+    },
+    {
+      "slug": "overactive-bladder",
+      "condition": "Overactive bladder",
+      "icd10": "N32.81",
+      "category": "Renal and genitourinary",
+      "tier": 2,
+      "aliases": [
+        "oab"
+      ]
+    },
+    {
+      "slug": "urinary-incontinence",
+      "condition": "Urinary incontinence",
+      "icd10": "R32",
+      "category": "Renal and genitourinary",
+      "tier": 2,
+      "aliases": [
+        "incontinence"
+      ]
+    },
+    {
+      "slug": "erectile-dysfunction",
+      "condition": "Erectile dysfunction",
+      "icd10": "N52.9",
+      "category": "Renal and genitourinary",
+      "tier": 2,
+      "aliases": [
+        "ed"
+      ]
+    },
+    {
+      "slug": "recurrent-urinary-tract-infection",
+      "condition": "Recurrent urinary tract infection",
+      "icd10": "N39.0",
+      "category": "Renal and genitourinary",
+      "tier": 2,
+      "aliases": [
+        "recurrent uti"
+      ]
+    },
+    {
+      "slug": "iga-nephropathy",
+      "condition": "IgA nephropathy",
+      "icd10": "N02.8",
+      "category": "Renal and genitourinary",
+      "tier": 3,
+      "aliases": [
+        "berger disease",
+        "igan"
+      ]
+    },
+    {
+      "slug": "nephrotic-syndrome",
+      "condition": "Nephrotic syndrome",
+      "icd10": "N04.9",
+      "category": "Renal and genitourinary",
+      "tier": 3,
+      "aliases": []
+    },
+    {
+      "slug": "breast-cancer-hr-positive-her2-negative",
+      "condition": "Breast cancer, HR-positive/HER2-negative",
+      "icd10": "C50.919",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "hr+ breast cancer",
+        "er positive breast cancer"
+      ]
+    },
+    {
+      "slug": "breast-cancer-her2-positive",
+      "condition": "Breast cancer, HER2-positive",
+      "icd10": "C50.919",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "her2+ breast cancer"
+      ]
+    },
+    {
+      "slug": "triple-negative-breast-cancer",
+      "condition": "Triple-negative breast cancer",
+      "icd10": "C50.919",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "tnbc"
+      ]
+    },
+    {
+      "slug": "non-small-cell-lung-cancer",
+      "condition": "Non-small cell lung cancer",
+      "icd10": "C34.90",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "nsclc",
+        "lung cancer"
+      ]
+    },
+    {
+      "slug": "small-cell-lung-cancer",
+      "condition": "Small cell lung cancer",
+      "icd10": "C34.90",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "sclc"
+      ]
+    },
+    {
+      "slug": "colorectal-cancer",
+      "condition": "Colorectal cancer",
+      "icd10": "C18.9",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "colon cancer",
+        "crc"
+      ]
+    },
+    {
+      "slug": "prostate-cancer",
+      "condition": "Prostate cancer",
+      "icd10": "C61",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "multiple-myeloma",
+      "condition": "Multiple myeloma",
+      "icd10": "C90.00",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "myeloma"
+      ]
+    },
+    {
+      "slug": "iron-deficiency-anemia",
+      "condition": "Iron deficiency anemia",
+      "icd10": "D50.9",
+      "category": "Hematology and oncology",
+      "tier": 1,
+      "aliases": [
+        "ida",
+        "low iron"
+      ]
+    },
+    {
+      "slug": "pancreatic-ductal-adenocarcinoma",
+      "condition": "Pancreatic ductal adenocarcinoma",
+      "icd10": "C25.9",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "pancreatic cancer"
+      ]
+    },
+    {
+      "slug": "hepatocellular-carcinoma",
+      "condition": "Hepatocellular carcinoma",
+      "icd10": "C22.0",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "hcc",
+        "liver cancer"
+      ]
+    },
+    {
+      "slug": "chronic-lymphocytic-leukemia",
+      "condition": "Chronic lymphocytic leukemia",
+      "icd10": "C91.10",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "cll"
+      ]
+    },
+    {
+      "slug": "acute-myeloid-leukemia",
+      "condition": "Acute myeloid leukemia",
+      "icd10": "C92.00",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "aml"
+      ]
+    },
+    {
+      "slug": "diffuse-large-b-cell-lymphoma",
+      "condition": "Diffuse large B-cell lymphoma",
+      "icd10": "C83.30",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "dlbcl"
+      ]
+    },
+    {
+      "slug": "renal-cell-carcinoma",
+      "condition": "Renal cell carcinoma",
+      "icd10": "C64.9",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "rcc",
+        "kidney cancer"
+      ]
+    },
+    {
+      "slug": "urothelial-carcinoma-of-the-bladder",
+      "condition": "Urothelial carcinoma of the bladder",
+      "icd10": "C67.9",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "bladder cancer"
+      ]
+    },
+    {
+      "slug": "epithelial-ovarian-cancer",
+      "condition": "Epithelial ovarian cancer",
+      "icd10": "C56.9",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "ovarian cancer"
+      ]
+    },
+    {
+      "slug": "anemia-of-chronic-kidney-disease",
+      "condition": "Anemia of chronic kidney disease",
+      "icd10": "D63.1",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "ckd anemia"
+      ]
+    },
+    {
+      "slug": "sickle-cell-disease",
+      "condition": "Sickle cell disease",
+      "icd10": "D57.1",
+      "category": "Hematology and oncology",
+      "tier": 2,
+      "aliases": [
+        "scd",
+        "sickle cell"
+      ]
+    },
+    {
+      "slug": "immune-thrombocytopenia",
+      "condition": "Immune thrombocytopenia",
+      "icd10": "D69.3",
+      "category": "Hematology and oncology",
+      "tier": 3,
+      "aliases": [
+        "itp"
+      ]
+    },
+    {
+      "slug": "cataract",
+      "condition": "Cataract",
+      "icd10": "H25.9",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 1,
+      "aliases": [
+        "cataracts"
+      ]
+    },
+    {
+      "slug": "neovascular-age-related-macular-degeneration",
+      "condition": "Neovascular age-related macular degeneration",
+      "icd10": "H35.32",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 1,
+      "aliases": [
+        "wet amd",
+        "amd"
+      ]
+    },
+    {
+      "slug": "diabetic-retinopathy",
+      "condition": "Diabetic retinopathy",
+      "icd10": "E11.319",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "primary-open-angle-glaucoma",
+      "condition": "Primary open-angle glaucoma",
+      "icd10": "H40.11",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 1,
+      "aliases": [
+        "glaucoma"
+      ]
+    },
+    {
+      "slug": "sensorineural-hearing-loss",
+      "condition": "Sensorineural hearing loss",
+      "icd10": "H90.5",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 1,
+      "aliases": [
+        "hearing loss"
+      ]
+    },
+    {
+      "slug": "dry-eye-disease",
+      "condition": "Dry eye disease",
+      "icd10": "H04.123",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 2,
+      "aliases": [
+        "dry eyes"
+      ]
+    },
+    {
+      "slug": "acute-conjunctivitis",
+      "condition": "Acute conjunctivitis",
+      "icd10": "H10.9",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 2,
+      "aliases": [
+        "pink eye",
+        "conjunctivitis"
+      ]
+    },
+    {
+      "slug": "chronic-rhinosinusitis-with-nasal-polyps",
+      "condition": "Chronic rhinosinusitis with nasal polyps",
+      "icd10": "J33.9",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 2,
+      "aliases": [
+        "crswnp",
+        "nasal polyps"
+      ]
+    },
+    {
+      "slug": "tinnitus",
+      "condition": "Tinnitus",
+      "icd10": "H93.19",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 2,
+      "aliases": [
+        "ringing in ears"
+      ]
+    },
+    {
+      "slug": "geographic-atrophy",
+      "condition": "Geographic atrophy",
+      "icd10": "H35.31",
+      "category": "Ophthalmologic and otolaryngologic",
+      "tier": 3,
+      "aliases": [
+        "dry amd"
+      ]
+    },
+    {
+      "slug": "endometriosis",
+      "condition": "Endometriosis",
+      "icd10": "N80.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "uterine-fibroids",
+      "condition": "Uterine fibroids",
+      "icd10": "D25.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 1,
+      "aliases": [
+        "leiomyoma",
+        "fibroids"
+      ]
+    },
+    {
+      "slug": "vasomotor-symptoms-of-menopause",
+      "condition": "Vasomotor symptoms of menopause",
+      "icd10": "N95.1",
+      "category": "Obstetric and gynecologic",
+      "tier": 1,
+      "aliases": [
+        "menopause",
+        "hot flashes"
+      ]
+    },
+    {
+      "slug": "preeclampsia",
+      "condition": "Preeclampsia",
+      "icd10": "O14.90",
+      "category": "Obstetric and gynecologic",
+      "tier": 1,
+      "aliases": []
+    },
+    {
+      "slug": "gestational-diabetes-mellitus",
+      "condition": "Gestational diabetes mellitus",
+      "icd10": "O24.419",
+      "category": "Obstetric and gynecologic",
+      "tier": 1,
+      "aliases": [
+        "gdm"
+      ]
+    },
+    {
+      "slug": "abnormal-uterine-bleeding",
+      "condition": "Abnormal uterine bleeding",
+      "icd10": "N93.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 2,
+      "aliases": [
+        "aub",
+        "heavy periods"
+      ]
+    },
+    {
+      "slug": "female-infertility",
+      "condition": "Female infertility",
+      "icd10": "N97.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 2,
+      "aliases": [
+        "infertility"
+      ]
+    },
+    {
+      "slug": "cervical-dysplasia",
+      "condition": "Cervical dysplasia",
+      "icd10": "N87.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 2,
+      "aliases": [
+        "cin"
+      ]
+    },
+    {
+      "slug": "postpartum-hemorrhage",
+      "condition": "Postpartum hemorrhage",
+      "icd10": "O72.1",
+      "category": "Obstetric and gynecologic",
+      "tier": 2,
+      "aliases": [
+        "pph"
+      ]
+    },
+    {
+      "slug": "preterm-labor",
+      "condition": "Preterm labor",
+      "icd10": "O60.00",
+      "category": "Obstetric and gynecologic",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "pelvic-inflammatory-disease",
+      "condition": "Pelvic inflammatory disease",
+      "icd10": "N73.9",
+      "category": "Obstetric and gynecologic",
+      "tier": 3,
+      "aliases": [
+        "pid"
+      ]
+    },
+    {
+      "slug": "acute-bronchiolitis",
+      "condition": "Acute bronchiolitis",
+      "icd10": "J21.9",
+      "category": "Pediatric",
+      "tier": 1,
+      "aliases": [
+        "bronchiolitis"
+      ]
+    },
+    {
+      "slug": "attention-deficit-hyperactivity-disorder-pediatric",
+      "condition": "Attention-deficit/hyperactivity disorder, pediatric",
+      "icd10": "F90.2",
+      "category": "Pediatric",
+      "tier": 1,
+      "aliases": [
+        "pediatric adhd"
+      ]
+    },
+    {
+      "slug": "pediatric-atopic-dermatitis",
+      "condition": "Pediatric atopic dermatitis",
+      "icd10": "L20.84",
+      "category": "Pediatric",
+      "tier": 2,
+      "aliases": [
+        "childhood eczema"
+      ]
+    },
+    {
+      "slug": "croup",
+      "condition": "Croup",
+      "icd10": "J05.0",
+      "category": "Pediatric",
+      "tier": 2,
+      "aliases": [
+        "laryngotracheobronchitis"
+      ]
+    },
+    {
+      "slug": "febrile-seizure",
+      "condition": "Febrile seizure",
+      "icd10": "R56.00",
+      "category": "Pediatric",
+      "tier": 2,
+      "aliases": []
+    },
+    {
+      "slug": "recurrent-acute-otitis-media",
+      "condition": "Recurrent acute otitis media",
+      "icd10": "H66.006",
+      "category": "Pediatric",
+      "tier": 2,
+      "aliases": [
+        "recurrent ear infections"
+      ]
+    },
+    {
+      "slug": "kawasaki-disease",
+      "condition": "Kawasaki disease",
+      "icd10": "M30.3",
+      "category": "Pediatric",
+      "tier": 3,
+      "aliases": []
+    },
+    {
+      "slug": "failure-to-thrive",
+      "condition": "Failure to thrive",
+      "icd10": "R62.51",
+      "category": "Pediatric",
+      "tier": 3,
+      "aliases": [
+        "ftt"
+      ]
+    }
+  ]
+}

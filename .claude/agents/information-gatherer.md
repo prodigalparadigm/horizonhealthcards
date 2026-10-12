@@ -29,6 +29,7 @@ The five passes:
 | `pipeline` | Phase 2/3 assets: mechanism, modality, sponsor, trial ID, phase as of today, expected readout or PDUFA date, plus recent failures and discontinuations |
 | `players` | Sponsors, device makers, academic centers of excellence, trial networks, and deals (M&A, licensing) with values and dates |
 | `economics` | List and net price, reimbursement pathway (pharmacy vs medical benefit, J-code status), site-of-care restrictions, prior auth posture |
+| `card` | **Composite, for card production only.** All three of guidelines, approved-therapies and the recent-changes slice of pipeline, in one pass, scoped to exactly what a one-page provider card needs. Budget 12-16 searches, ceiling 20. Use this instead of three separate passes when the consumer is a card, not a brief — it is three times cheaper and the card needs no players or economics pass. |
 
 ## Source hierarchy — cite the highest tier you can reach
 
@@ -50,7 +51,7 @@ your gaps list. Never launder a rumor into a fact by dropping the label.
 
 - Target primary domains directly: `site:clinicaltrials.gov`, `site:fda.gov`,
   `site:accessdata.fda.gov`, the society domain, the company's IR path.
-- Spend **4–6 searches**, hard ceiling 8. Stop when new searches stop producing new
+- Spend **4–6 searches**, hard ceiling 8 — except the `card` composite pass, which gets 12–16 and a ceiling of 20. Stop when new searches stop producing new
   primary sources. Returning five well-sourced facts beats twelve shaky ones.
 - Prefer 2025–2026 sources. Anything older needs a reason, stated.
 - **Never cite a guideline without its year or version.** A superseded guideline passed
@@ -58,6 +59,16 @@ your gaps list. Never launder a rumor into a fact by dropping the label.
 - Negative results are findings. A failed phase 3, a dropped asset, a withdrawn
   indication — report them. The synthesist needs the graveyard as much as the pipeline.
 - Do not infer a date. If a readout date is not posted, say it is not posted.
+
+- **A URL you have not opened is not a citation.** Taking a label link from a search-result
+  snippet and putting it in the Source column is the single highest-frequency way a wrong
+  fact reaches a card: the link is real, it resolves, and it points at a different drug.
+  This has already happened once in production — a metformin row cited an NDA that turned
+  out to be a two-drug combination product. So for every drug row, **fetch the label and
+  confirm the document is about the agent you are citing** before the URL goes in the table.
+  Note that `accessdata.fda.gov` returns 404 to default user-agents; use a browser
+  user-agent rather than concluding the link is dead. If you could not open it, say so in
+  `Could not confirm` and mark the row, rather than passing an unopened link downstream.
 
 ## What you return
 

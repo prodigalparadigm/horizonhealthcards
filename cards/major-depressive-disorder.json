@@ -1,0 +1,129 @@
+{
+  "slug": "major-depressive-disorder",
+  "condition": "Major depressive disorder",
+  "segment": "Adult",
+  "icd10": "F32.9",
+  "asOf": "2026-10-12",
+  "summary": "Depressed mood and/or anhedonia plus associated sleep/appetite/concentration/energy/guilt/psychomotor/suicidality symptoms for 2+ weeks causing impairment; tracked with PHQ-9 (score >=10 suggests MDD, a 5-point drop = response, <5 = remission). USPSTF 2023 (Grade B): screen all adults 19+, including pregnant/postpartum; evidence is insufficient (I statement) for routine suicide-risk screening in the general adult population. VA/DoD 2022 (the current actionable US guideline - see guideline-currency flag in News) first-line: SSRI/SNRI/bupropion/mirtazapine/trazodone, plus newly added vilazodone and vortioxetine, with/without CBT, IPT, or newly added short-term psychodynamic therapy; adequate trial ~4-8 weeks; step 2 = augment (atypical antipsychotic, lithium, T3, or a second antidepressant) or switch; esketamine/ketamine or rTMS after 2+ failed adequate trials, which is how treatment-resistant depression (TRD) is defined. Guideline-currency flag: APA's only full MDD practice guideline remains the 3rd edition (Oct 2010, reaffirmed 2015), now filed under APA 'Legacy Practice Guidelines' - no newer full APA CPG exists.",
+  "news": [
+    {
+      "when": "2015 (reaffirmed); re-confirmed current as of 2026-10-12",
+      "what": "Guideline-currency flag: no new full APA MDD practice guideline exists. APA's 3rd edition (Oct 2010, reaffirmed 2015) remains its only full CPG and is now listed under 'Legacy Practice Guidelines' - treat VA/DoD (2022) below as the current actionable US guideline, not APA.",
+      "url": "https://www.psychiatry.org/psychiatrists/practice/clinical-practice-guidelines/legacy-practice-guidelines-for-major-depressive-di",
+      "signal": true
+    },
+    {
+      "when": "2025-03-24",
+      "what": "SPRAVATO REMS modified (most recent update) - certified-setting dispensing and provider-monitoring requirements continue.",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/211243Orig1s021ltr.pdf",
+      "signal": true
+    },
+    {
+      "when": "2025-01-21",
+      "what": "FDA approved Spravato (esketamine) as monotherapy for treatment-resistant depression; previously required a concomitant oral antidepressant.",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/211243Orig1s021ltr.pdf",
+      "signal": false
+    },
+    {
+      "when": "2025",
+      "what": "Dextromethorphan-bupropion (Auvelity) approved for agitation associated with Alzheimer's dementia - a separate indication from MDD, not an MDD-label change.",
+      "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-non-antipsychotic-drug-treat-agitation-associated-dementia",
+      "signal": false
+    }
+  ],
+  "drugs": [
+    {
+      "drug": "Bupropion (Wellbutrin)",
+      "cls": "NDRI",
+      "line": "1L / augmentation",
+      "route": "PO",
+      "warning": "Class suicidality boxed warning; also dose-dependent seizure risk",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/018644s064lbl.pdf"
+    },
+    {
+      "drug": "Dextromethorphan-bupropion (Auvelity)",
+      "cls": "NMDA antagonist + sigma-1 agonist",
+      "line": "1L (oral option)",
+      "route": "PO (ER)",
+      "warning": "Class suicidality boxed warning",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/215430s016lbl.pdf"
+    },
+    {
+      "drug": "Duloxetine (Cymbalta)",
+      "cls": "SNRI",
+      "line": "1L",
+      "route": "PO",
+      "warning": "Class suicidality boxed warning; serotonin syndrome risk with MAOIs and other serotonergic agents",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2010/022516lbl.pdf"
+    },
+    {
+      "drug": "Fluoxetine (Prozac)",
+      "cls": "SSRI",
+      "line": "1L",
+      "route": "PO",
+      "warning": "Class suicidality boxed warning",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2017/018936s108lbl.pdf"
+    },
+    {
+      "drug": "Mirtazapine (Remeron)",
+      "cls": "Tetracyclic",
+      "line": "1L (insomnia-predominant)",
+      "route": "PO",
+      "warning": "Class suicidality boxed warning",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/020415s034s036,021208s024s026lbl.pdf"
+    },
+    {
+      "drug": "Venlafaxine XR (Effexor XR)",
+      "cls": "SNRI",
+      "line": "1L",
+      "route": "PO",
+      "warning": "Class suicidality boxed warning; contraindicated with MAOIs within 14 days (serotonin syndrome)",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/020699s112lbl.pdf"
+    },
+    {
+      "drug": "Aripiprazole (Abilify)",
+      "cls": "Atypical antipsychotic",
+      "line": "2L (adjunctive)",
+      "route": "PO",
+      "warning": "Boxed: increased mortality in elderly patients with dementia-related psychosis; antidepressant-class suicidality warning also applies in the adjunct setting",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/021436s048lbledit.pdf"
+    },
+    {
+      "drug": "Esketamine (Spravato)",
+      "cls": "NMDA antagonist",
+      "line": "3L (TRD after 2+ failed trials; also MDD with acute suicidal ideation)",
+      "route": "Intranasal (in-clinic only)",
+      "warning": "Boxed: sedation, dissociation, abuse/misuse potential, suicidal thoughts and behaviors; REMS-restricted (certified settings only, monitoring incl. pulse oximetry for at least 2h post-dose)",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/211243s019lbl.pdf"
+    }
+  ],
+  "notOnCard": [
+    "Quetiapine XR (Seroquel XR) and brexpiprazole (Rexulti) - cut from the table above for the 8-agent space limit; both are adjunctive atypical antipsychotics carrying the same dementia-related-psychosis mortality boxed warning as aripiprazole",
+    "Zuranolone (Zurzuvae) and brexanolone (Zulresso) - both approved only for postpartum depression, not MDD; zuranolone received an FDA Complete Response Letter for a general-MDD indication, so neither gets a drug row here",
+    "Brexanolone commercial discontinuation (reported 2025-01-01) - Tier 4 only, no FDA notice located; omitted",
+    "Lumateperone (Caplyta) for MDD - unverified; referenced only in an APA practice-update snippet with no label pulled; omitted entirely",
+    "Trazodone, vilazodone, vortioxetine, lithium, and T3 augmentation - named in VA/DoD 2022 as options but no FDA label pulled this pass; no drug row",
+    "Ketamine (racemic, non-esketamine) and rTMS as TRD options - named in VA/DoD 2022 guideline text but no device/drug label pulled this pass; no row",
+    "Every label URL on this card came from search results and was not opened during research - needs fact-check verification before release",
+    "Exact boxed-warning wording for Abilify, Seroquel XR, and Rexulti was summarized, not quoted verbatim from the label - needs verbatim check",
+    "VA/DoD 2022 CPG currency - not checked for a possible interim addendum since approval"
+  ],
+  "status": "pending_review",
+  "builtAt": "2026-10-12"
+}

@@ -7,12 +7,19 @@ research and someone treating patients. This should take five to ten minutes per
 
 Not whether the card is well written. Whether a provider acting on it would be misled.
 
-You need **Editor** access to the dashboard. With it you see a **Review queue** under the
-card area; staff do not, and staff cannot read the drafts in it.
+You need **Editor** access to the dashboard. With it, three things appear that staff never
+see:
+
+- A bar at the top of the page: **"N drafts awaiting your review"**, with a button per draft.
+- A **Review queue** under the card area, with the fuller list and a refresh control.
+- A **Review this draft** button whenever you search a condition whose card is in review —
+  so you are never shown the same dead end staff get.
+
+Staff cannot read the drafts behind any of these.
 
 ## How to work a draft
 
-Open it from the queue. You get the card exactly as staff would see it, plus the fact-check
+Open it from any of the three entry points above. You get the card exactly as staff would see it, plus the fact-check
 report beneath it.
 
 Read the report first, then the card. The report is organized so you can triage:
@@ -29,10 +36,14 @@ Read the report first, then the card. The report is organized so you can triage:
 Then read the card with a provider's eyes. The checker verifies provenance; it does not
 know your patient population or your formulary.
 
-## Clear it or send it back
+## Release it or send it back
 
-**Clear for staff** writes the card to the cleared collection with your name and today's
-date. Every open dashboard picks it up immediately. There is no second review after yours.
+**Release to staff** takes two clicks on purpose — the first arms it, the second releases.
+Releasing writes the card to the cleared collection with your name and today's date, and
+every open dashboard picks it up immediately. There is no second review after yours.
+
+If the fact-check returned **BLOCK**, or returned no verdict at all, the release button is
+disabled. That is not something to work around: send it back instead.
 
 **Send back** returns it with a note. Write the note for the person who will fix it: name
 the claim and what is wrong with it. "Drug table is off" costs another round trip.
@@ -50,7 +61,7 @@ the claim and what is wrong with it. "Drug table is off" costs another round tri
 
 ## Two things to resist
 
-**Clearing because the card is otherwise good.** The card ships as a whole. A provider
+**Releasing because the card is otherwise good.** The card ships as a whole. A provider
 cannot see which row you had doubts about.
 
 **Rewriting the card yourself.** The queue is for clearing and returning. If you fix a card
@@ -58,6 +69,6 @@ in place, nobody reviews your fix — which is the problem you were hired to pre
 
 ## A clean pass is a real outcome
 
-If the report is clean and the card reads correctly, clear it. Do not manufacture findings
+If the report is clean and the card reads correctly, release it. Do not manufacture findings
 to look thorough; that trains everyone downstream to skim your judgments, and the one time
 it matters they will skim past something real.

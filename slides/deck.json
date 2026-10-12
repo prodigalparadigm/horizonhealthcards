@@ -1,0 +1,28 @@
+{
+  "v": 4,
+  "createdOnFiles": { "v": 1, "at": "2026-10-12T12:00:00Z" },
+  "lists": "css",
+  "title": "Horizon Executive Deck",
+  "order": ["cover", "proof", "cost", "constraint", "pace"],
+  "sections": {
+    "s1": {
+      "description": "What Horizon produces for two different readers, and evidence that the review gate actually stops bad cards.",
+      "start": "cover"
+    },
+    "s2": {
+      "description": "What a card costs to produce, why clinician review is the real constraint, and the pace that follows from it.",
+      "start": "cost"
+    }
+  },
+  "faces": {
+    "source-serif-4": {
+      "family": "Source Serif 4",
+      "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&display=swap"
+    },
+    "ibm-plex-sans": {
+      "family": "IBM Plex Sans",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    }
+  },
+  "designSystems": []
+}

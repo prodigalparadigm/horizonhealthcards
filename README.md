@@ -66,9 +66,11 @@ review. Nothing reaches staff until a reviewer clears it.
                                inputbuilder, build-qc
   skills/condition-brief/      the strategy brief: protocol, template, source tiers
 condition-cards.html           the staff dashboard — publish this as an Artifact
+slides/                        the executive slide — publish as a Slides Artifact
 briefs/                        generated strategic briefs, dated
-cards/                         generated condition cards (markdown + store JSON)
+cards/                         generated condition cards (.md, .json, .review.md)
 docs/
+  BUILD.md                     what was built, one page
   SETUP.md                     install, deploy, permissions, troubleshooting
   PRESENTING.md                presenter quickstart for the executive slide
   REVIEWING.md                 for the clinician or pharmacist clearing cards
