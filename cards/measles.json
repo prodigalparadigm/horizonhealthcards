@@ -80,5 +80,68 @@
     "Antiviral therapy for measles - none exists; this is not an omission for space, there is no approved or pipeline antiviral agent to list."
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "34 claims \u00b7 11 searches",
+    "blocking": [
+      {
+        "claim": "GamaSTAN \u2014 no boxed warning noted",
+        "says": "The label carries WARNING: THROMBOSIS, with risk factors including advanced age, immobilisation, hypercoagulable states, prior thrombosis, oestrogen use and central vascular catheters."
+      },
+      {
+        "claim": "IGIV 100-400 mg/kg",
+        "says": "The card's own cited CDC source says 400 mg/kg. There is no range and no 100 mg/kg figure. The low end of the card's range is a FOUR-FOLD UNDERDOSE. The source also sets a route split the card omits: IGIV above 30 kg, GamaSTAN below 30 kg and not indicated for adults."
+      },
+      {
+        "claim": "Antiviral therapy \u2014 none exists; no pipeline agent to list",
+        "says": "The core negative is confirmed \u2014 no FDA-approved antiviral. But the card's own source has a ribavirin section: in vitro activity, used off-label in severe or immunocompromised disease, oral commercially available, IV only via FDA EIND. The absolute framing could lead a clinician to believe nothing off-label exists."
+      },
+      {
+        "claim": "ProQuad row lists no contraindications at all",
+        "says": "The label contraindicates it in hypersensitivity, immunosuppression, moderate or severe febrile illness, active untreated tuberculosis and pregnancy. A live attenuated vaccine row omitting pregnancy and immunosuppression is harm-capable."
+      },
+      {
+        "claim": "M-M-R II contraindications omit active untreated tuberculosis",
+        "says": "The label lists five contraindications including active untreated TB. The card also narrows hypersensitivity to neomycin; the label says any component."
+      },
+      {
+        "claim": "Vitamin A row omits the pregnancy warning",
+        "says": "Immediately adjacent to the toxicity sentence the card did use: pregnant women should avoid high-dose vitamin A, which has been linked to severe birth defects. The card gives no teratogenicity warning on the only row where it matters."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "The MMRV scheduling refusal",
+        "change": "No longer the right call. CDC's live schedule notes state the operative recommendation: for dose 1 at 12-47 months, administer MMR and varicella separately; MMRV may be used if caregivers prefer. Replace 'unsettled' with that quoted language and its as-of date."
+      },
+      {
+        "claim": "ProQuad route SC",
+        "change": "Label says intramuscular or subcutaneous."
+      },
+      {
+        "claim": "GamaSTAN dosing",
+        "change": "CDC supersedes the label operationally: 0.5 mL/kg regardless of immune status, max 15 mL."
+      },
+      {
+        "claim": "Secondary attack rate '90% or more'",
+        "change": "CDC says 'up to 9 out of 10' \u2014 an upper bound. The card inverts it into a floor."
+      },
+      {
+        "claim": "Missing from the PEP prose",
+        "change": "Patients who receive IG PEP and are eligible for MMR should wait at least 6 months before vaccination."
+      }
+    ],
+    "verified": [
+      "No FDA-approved antiviral and supportive-care-only management \u2014 confirmed verbatim",
+      "ProQuad and M-M-R II genuinely carry no boxed warning; full label text extracted",
+      "GamaSTAN IM-only / do-not-administer-intravenously is stated unambiguously on the card",
+      "Vitamin A dosing matches CDC exactly, as do the 2026 and 2025 case counts to the digit",
+      "PEP windows, IG eligibility and the 3-4 week protection duration all confirmed"
+    ],
+    "couldNotVerify": [
+      "The immunocompromised isolation clause is clinically standard but its cited source does not contain it.",
+      "'Worst year since the early 1990s' is not stated on the CDC page it is attached to."
+    ]
+  }
 }

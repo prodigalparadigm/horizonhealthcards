@@ -1,0 +1,20 @@
+# AWS App Runner - source-based build.
+# For an image-based service, build the Dockerfile and push to ECR instead; App Runner
+# ignores this file in that case.
+version: 1.0
+runtime: nodejs22
+build:
+  commands:
+    build:
+      - cd server && npm install --omit=dev --no-audit --no-fund
+run:
+  runtime-version: 22
+  command: node server/server.js
+  network:
+    port: 8080
+  env:
+    - name: NODE_ENV
+      value: production
+    # POC only. Set to "false" and nothing but status == "cleared" cards are served.
+    - name: SERVE_DEMO
+      value: "true"

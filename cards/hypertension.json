@@ -93,5 +93,48 @@
     "ACEi/ARB/direct renin inhibitor contraindication in pregnancy - noted on card as guideline statement, not an independent drug-label source for this card's scope (non-pregnant adults)."
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "31 claims \u00b7 14 searches \u00b7 7 direct fetches with a browser user-agent",
+    "blocking": [
+      {
+        "claim": "Baxdrostat approved 2026-05-18",
+        "says": "Drugs@FDA gives NDA 219878 submission status date 2026-05-15. Drugs.com's approval history independently gives May 15. Nothing supports May 18. Wrong in all four places it appears."
+      },
+      {
+        "claim": "Spironolactone row: boxed tumorigenicity, citing a 2014 label",
+        "says": "Three problems from one root. The cited 2014 PDF says on its own face 'this label may not be the latest approved by FDA'. The current reference label (Rev 11/2025) has NO boxed warning at all \u2014 the PLR conversion removed it. And the row omits HYPERKALEMIA, which is both a contraindication and the lead Warning, on a row explicitly scoped to add-on use in resistant hypertension stacked on an ACEi or ARB. Marketed generics do still carry the old box, so the claim is stale and inconsistent rather than fabricated."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "Guideline dated 2025-05 online",
+        "change": "Published online 2025-08-14. The 2025-05 appears to have been read off the DOI suffix, which is not a publication date."
+      },
+      {
+        "claim": "Lisinopril boxed warning includes a 2nd/3rd trimester clause",
+        "change": "Not in the box. The box says discontinue as soon as pregnancy is detected, full stop. As written the card narrows a boxed warning toward LESS caution in the first trimester."
+      },
+      {
+        "claim": "Gaps note about an unreconciled 47.7% vs 49.1% prevalence denominator",
+        "change": "DELETE. '49.1' appears zero times in the cited CDC brief. 47.7% is correct and correctly labelled \u2014 the note asserts a figure its own source does not contain."
+      },
+      {
+        "claim": "Baxdrostat has no drug row because its boxed-warning status is unverified",
+        "change": "Now determined: NO boxed warning, no contraindications, W&P hyperkalemia and hyponatremia. It earns a row."
+      }
+    ],
+    "verified": [
+      "The 2025 AHA/ACC multisociety guideline exists and is current, and ALL SIX specifics check out: <130/80 target, three first-line classes, two agents at 140/90, PREVENT replacing the Pooled Cohort Equations, renal denervation as Class 2b, aldosteronism screening regardless of potassium",
+      "Losartan's fetal-toxicity boxed warning is accurate and complete",
+      "'No boxed warning' is correct for amlodipine, chlorthalidone and hydrochlorothiazide \u2014 verified absences, not parsing misses",
+      "47.7% prevalence and 20.7% controlled to <130/80 are both exactly right",
+      "All three BaxHTN figures confirmed off the label itself",
+      "Beta-blocker omission judged SAFE as disclosed \u2014 they are not first-line in the 2025 guideline and the gaps note preserves their compelling indications"
+    ],
+    "couldNotVerify": [
+      "Nothing material. Two publisher bot-blocks were worked around via independent primary sources."
+    ]
+  }
 }

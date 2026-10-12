@@ -157,5 +157,52 @@
     "No check performed for a focused update superseding the 2023 ACC/AHA/ACCP/HRS guideline"
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "22 claims \u00b7 15 searches (at ceiling) \u00b7 only 6 of 11 drug rows opened \u2014 3 of those 6 were defective",
+    "blocking": [
+      {
+        "claim": "Dofetilide \u2014 no boxed warning in retrieved label text",
+        "says": "Tikosyn HAS a boxed warning, and the 3-day in-facility initiation requirement IS its content. The card prints the warning's substance while denying the warning exists."
+      },
+      {
+        "claim": "Sotalol \u2014 no boxed warning noted",
+        "says": "Sotalol injection carries WARNING: LIFE THREATENING PROARRHYTHMIA. The boxed warning's headline hazard \u2014 QT-prolonging ventricular tachycardia \u2014 is absent from the card altogether."
+      },
+      {
+        "claim": "Metoprolol tartrate \u2014 no boxed warning",
+        "says": "It carries one: abrupt cessation can cause angina exacerbation and myocardial infarction; taper over 1-2 weeks. The cited URL also resolves to a 12.5 mg SPL under a brand not marketed at that strength, which happens to lack the box \u2014 the metformin failure mode again."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "Apixaban cited to a 2021 supplement",
+        "change": "A newer 2025 supplement exists; the boxed warning is UNCHANGED. Only the citation is stale."
+      },
+      {
+        "claim": "Amiodarone route PO/IV",
+        "change": "The cited label is tablets, oral only. An oral-label boxed warning cannot substantiate an IV route."
+      },
+      {
+        "claim": "Gaps section claims the guideline avoids sex-specific CHA2DS2-VASc cutoffs",
+        "change": "Wrong \u2014 the guideline states the 2%/year threshold with the sex-specific scores as its equivalent."
+      },
+      {
+        "claim": "Internal contradiction on ablation",
+        "change": "The summary asserts first-line ablation as fact while the gaps section calls that Tier 4 only. One must change."
+      }
+    ],
+    "verified": [
+      "Edoxaban's three-part boxed warning is exact, including the CrCl above 95 mL/min do-not-use clause",
+      "Amiodarone's three-part warning is correct and both figures are label-verbatim",
+      "Dronedarone's boxed warning and both contraindications are exact",
+      "The 2023 ACC/AHA/ACCP/HRS guideline is current and not superseded"
+    ],
+    "couldNotVerify": [
+      "FIVE DRUG ROWS WERE NEVER OPENED \u2014 warfarin, dabigatran, rivaroxaban, diltiazem, digoxin. Given 3 of 6 opened rows were wrong, these must be treated as unverified. A second pass is required.",
+      "REMS status for dofetilide and oral sotalol.",
+      "None of the three news items were opened."
+    ]
+  }
 }

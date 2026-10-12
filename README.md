@@ -69,7 +69,14 @@ condition-cards.html           the staff dashboard — publish this as an Artifa
 slides/                        the executive slide — publish as a Slides Artifact
 briefs/                        generated strategic briefs, dated
 cards/                         generated condition cards (.md, .json, .review.md)
+server/                        POC: Express API + front end (see docs/BUILD-REPORT.md)
+Dockerfile · apprunner.yaml    container and App Runner config
+scripts/merge-reviews.py       writes fact-check verdicts into the card JSON
+demo_deck.pdf                  the executive deck, print-ready
 docs/
+  BUILD-REPORT.md              complete build description — scaffolding, decisions,
+                               guardrails, QA analysis, storage options, deployment
+  TRANSCRIPT.md                what was asked and built, session by session, errors included
   BUILD.md                     what was built, one page
   SETUP.md                     install, deploy, permissions, troubleshooting
   PRESENTING.md                presenter quickstart for the executive slide
@@ -97,5 +104,13 @@ patient information out of its input and does not store it.
 
 ## Status
 
-Pipeline, agents, dashboard and review queue are built. See [`docs/SETUP.md`](docs/SETUP.md)
-for what is deployed and what is not yet exercised.
+**This is a POC/demo build.** Nine condition cards exist as drafts. Six have been
+fact-checked and **all six were blocked**, with 20 blocking defects between them — see
+[`docs/BUILD-REPORT.md`](docs/BUILD-REPORT.md) §5 for the analysis and the 12-class defect
+taxonomy. For the demo those drafts are served anyway, each flagged `demo`, with its real
+fact-check findings visible in the review queue.
+
+**No card has passed review.** Nothing here is fit for clinical use. Set `SERVE_DEMO=false`
+and the service correctly serves nothing at all.
+
+Full account of what was built and what went wrong: [`docs/TRANSCRIPT.md`](docs/TRANSCRIPT.md).

@@ -114,5 +114,48 @@
     "Phase 3, not-yet-approved agents (orforglipron, CagriSema) - investigational, not included per card scope"
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "26 claims \u00b7 15 searches \u00b7 all 7 cited FDA label PDFs downloaded and read directly",
+    "blocking": [
+      {
+        "claim": "Metformin row links to its FDA label",
+        "says": "That URL is the label for SEGLUROMET (ertugliflozin + metformin), a fixed-dose SGLT2i/metformin combination \u2014 not metformin monotherapy. A clinician clicking the row lands on a two-drug product whose separate SGLT2i risks (DKA, Fournier's gangrene) the row does not disclose."
+      },
+      {
+        "claim": "Metformin boxed warning: renal impairment, sepsis, dehydration, alcohol, acute CHF",
+        "says": "The label enumerates renal impairment, concomitant drugs, AGE 65 AND OVER, RADIOLOGICAL STUDIES WITH CONTRAST, surgery, hypoxic states, alcohol, hepatic impairment. Four label risk factors are omitted and three non-label terms substituted. The contrast hold is a routine decision this card would fail to prompt."
+      },
+      {
+        "claim": "Not on this card: Ozempic CKD indication unverified, no primary source",
+        "says": "The card's own cited Ozempic label carries that indication in INDICATIONS AND USAGE. It is FDA-approved and documented in the source already on the card. The hedge became its own misinformation."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "Sulfonylurea boxed-warning format unconfirmed",
+        "change": "RESOLVED: the UGDP cardiovascular-mortality warning is NOT a boxed warning; it sits in the ordinary WARNINGS section. Confirmed on two current labels."
+      },
+      {
+        "claim": "Canagliflozin warnings incomplete",
+        "change": "Add necrotizing fasciitis of the perineum (Fournier's gangrene), labelled as serious and life-threatening."
+      },
+      {
+        "claim": "Tirzepatide row lists HFpEF-with-obesity",
+        "change": "That is a Zepbound indication, not Mounjaro's. Relabel the row or drop the clause."
+      }
+    ],
+    "verified": [
+      "Canagliflozin genuinely has NO boxed warning \u2014 the amputation warning was removed in 2020 and is now W&P only",
+      "Thyroid C-cell tumour boxed warnings accurate on dulaglutide, semaglutide and tirzepatide",
+      "ADA Standards of Care 2026 is the current edition and the year on the card is right",
+      "Every Mounjaro figure matches SURPASS-CVOT including HR 0.92 (95.3% CI 0.83-1.01)",
+      "No cited URL is dead or fabricated"
+    ],
+    "couldNotVerify": [
+      "The card's headline claim \u2014 that ADA 2026 frames GLP-1/SGLT2i as disease-modifying from diagnosis \u2014 is corroborated at Tier 3 only; diabetesjournals.org returned 403.",
+      "Every figure in the West Michigan treatment-gap study. DOI and title confirmed via Crossref; full text blocked."
+    ]
+  }
 }

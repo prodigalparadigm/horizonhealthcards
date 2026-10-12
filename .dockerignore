@@ -1,0 +1,11 @@
+.git
+.github
+.claude
+node_modules
+server/node_modules
+briefs
+slides
+docs
+demo_deck.pdf
+condition-cards.html
+README.md

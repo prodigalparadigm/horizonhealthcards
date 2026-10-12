@@ -12,7 +12,7 @@
       "url": "https://academic.oup.com/ajrccm/article/200/7/e45/8496962"
     },
     {
-      "name": "2025 ATS update — ATS only, IDSA is NOT a co-sponsor; answers 4 questions only, everything else still follows 2019",
+      "name": "2025 ATS update \u2014 ATS only, IDSA is NOT a co-sponsor; answers 4 questions only, everything else still follows 2019",
       "citation": "AJRCCM 212(1):24-44, online 2025-07-18, print Jan 2026",
       "url": "https://academic.oup.com/ajrccm/article/212/1/24/8435770"
     }
@@ -20,7 +20,7 @@
   "news": [
     {
       "when": "2026-04",
-      "what": "Peer-reviewed dissent, \"We Dissent: Lessons From the 2025 Community-Acquired Pneumonia Guidelines,\" Clin Infect Dis 2026;82(4):625 — the 2025 ATS changes are contested, not settled; specific objections not reviewed for this card.",
+      "what": "Peer-reviewed dissent, \"We Dissent: Lessons From the 2025 Community-Acquired Pneumonia Guidelines,\" Clin Infect Dis 2026;82(4):625 \u2014 the 2025 ATS changes are contested, not settled; specific objections not reviewed for this card.",
       "url": "https://academic.oup.com/cid/article/82/4/625/8364680",
       "signal": true
     },
@@ -89,7 +89,7 @@
       "cls": "Respiratory fluoroquinolone",
       "line": "Outpatient 2L mono alt / inpatient mono alt",
       "route": "PO / IV",
-      "warning": "Boxed (class): disabling, potentially irreversible reactions occurring together — tendinitis/tendon rupture, peripheral neuropathy, CNS effects, myasthenia gravis exacerbation. Wording corroborated from secondary reproductions of FDA text, not a direct label parse.",
+      "warning": "Boxed (class): disabling, potentially irreversible reactions occurring together \u2014 tendinitis/tendon rupture, peripheral neuropathy, CNS effects, myasthenia gravis exacerbation. Wording corroborated from secondary reproductions of FDA text, not a direct label parse.",
       "boxed": true,
       "boxedUnverified": true,
       "src": "FDA label",
@@ -154,5 +154,48 @@
     "PSI-versus-CURB-65 real-world US usage: no primary data located."
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "31 claims \u00b7 13 searches \u00b7 both fluoroquinolone label PDFs parsed directly",
+    "blocking": [
+      {
+        "claim": "Ceftaroline (Teflaro) listed as an anti-MRSA cephalosporin",
+        "says": "Its CABP indication covers Staphylococcus aureus METHICILLIN-SUSCEPTIBLE ISOLATES ONLY. Only the skin-infection indication includes MRSA. On a CAP card from which vancomycin and linezolid were cut, this is the only row a provider scanning for MRSA coverage can land on, and it is the wrong answer."
+      },
+      {
+        "claim": "The rendered card silently omits vancomycin and linezolid",
+        "says": "The renderer normalises cards against a fixed key whitelist. 'cutForSpace' is not in it and is dropped, and the three cut agents live only there. In the shipped card a provider sees eight agents, none covering MRSA, with no indication that vancomycin or linezolid exist. The 8-row cap was the wrong thing to protect: a formatting limit should never outrank coverage completeness."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "Gaps section says the fluoroquinolone wording was never directly parsed",
+        "change": "DELETE \u2014 the gap is closed. Both PDFs retrieved and extracted; all four boxed-warning elements present and the card's wording is accurate. The declared weak point was clean."
+      },
+      {
+        "claim": "Levofloxacin route PO/IV",
+        "change": "The cited label is tablets for oral use and its Recent Major Changes record the injection form being removed. Cite an injection label alongside it."
+      },
+      {
+        "claim": "'Treat the four 2025 changes as contested, not settled'",
+        "change": "Overstates the dissent. It PRAISES the shortened durations and objects specifically to the virus-positive antibacterial recommendation and the guideline process."
+      },
+      {
+        "claim": "Severe-CAP criterion counts given without the decision rule",
+        "change": "Add the threshold: one major OR three or more of nine minor. Severity gates two of the four recommendations the card asserts, so without it a provider cannot apply the card's own guidance."
+      }
+    ],
+    "verified": [
+      "The 2025 update exists, is ATS-only, and IDSA is not a co-sponsor \u2014 the guideline page states it was not approved by IDSA",
+      "All four 2025 recommendations are correct in direction AND strength",
+      "PSI preferred over CURB-65 \u2014 strong recommendation, moderate quality",
+      "Fluoroquinolone boxed warnings complete and accurate on all four elements",
+      "Boxed-warning status confirmed for all 8 table rows plus all 3 cut agents; none omitted",
+      "Three of the four dissent authors sat on the 2025 ATS panel \u2014 a genuine insider dissent"
+    ],
+    "couldNotVerify": [
+      "Whether IDSA will publish its own CAP guideline \u2014 the thing to re-check next refresh, since it would turn this card's two-guideline structure into three."
+    ]
+  }
 }

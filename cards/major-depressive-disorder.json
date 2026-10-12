@@ -125,5 +125,51 @@
     "VA/DoD 2022 CPG currency - not checked for a possible interim addendum since approval"
   ],
   "status": "pending_review",
-  "builtAt": "2026-10-12"
+  "builtAt": "2026-10-12",
+  "review": {
+    "verdict": "BLOCK",
+    "checked": "31 claims \u00b7 14 searches \u00b7 all 9 cited URLs opened; all 9 resolve and are the correct drug",
+    "blocking": [
+      {
+        "claim": "Esketamine boxed warning: sedation, dissociation, abuse/misuse, suicidal thoughts",
+        "says": "The boxed warning is titled SEDATION; DISSOCIATION; RESPIRATORY DEPRESSION; ABUSE AND MISUSE; SUICIDAL THOUGHTS AND BEHAVIORS. Respiratory depression is omitted \u2014 and it is the specific reason pulse oximetry is required. The orchestrator's own review brief also listed only four components; the label governs."
+      },
+      {
+        "claim": "2025-01-21 monotherapy approval cited to the S-021 approval letter",
+        "says": "S-021 is a Changes Being Effected supplement whose entire content is a REMS form revision. The monotherapy indication was SUPPL-16, approved 2025-01-17. The claim is true; the citation does not support it."
+      },
+      {
+        "claim": "2025-03-24 SPRAVATO REMS modified (most recent update)",
+        "says": "The cited letter describes that date as the PRIOR modification. Six later ones exist; the most recent is 2026-06-24. The card is 15 months stale."
+      },
+      {
+        "claim": "Auvelity approved for dementia agitation, dated 2025",
+        "says": "The card's own cited FDA announcement dates it 2026-04-30. Correctly dated it becomes the newest item on the card."
+      }
+    ],
+    "fixes": [
+      {
+        "claim": "Duloxetine label is the 2010 version",
+        "change": "16 years stale. The claim holds but re-cite to the current PI."
+      },
+      {
+        "claim": "'previously required a concomitant oral antidepressant' is unqualified",
+        "change": "Monotherapy applies to TRD only. The acute-suicidal-ideation indication still requires one."
+      },
+      {
+        "claim": "'reaffirmed 2015' on the headline APA claim",
+        "change": "Unsourced \u2014 the APA page states no reaffirmation date. Came from the orchestrator's brief. Drop it or source it."
+      }
+    ],
+    "verified": [
+      "The class suicidality boxed warning is verbatim-confirmed on all 8 rows, checked against eight separate labels",
+      "Aripiprazole's two-limb boxed warning is accurate and complete",
+      "THE HEADLINE CLAIM IS CORRECT: psychiatry.org's current guideline index contains no MDD guideline; it appears only under Legacy Practice Guidelines",
+      "VA/DoD 2022 is current with no interim addendum",
+      "Zuranolone correctly kept off the table \u2014 it received a Complete Response Letter for the MDD indication"
+    ],
+    "couldNotVerify": [
+      "'reaffirmed 2015' and '3rd edition' \u2014 neither appears on the APA page cited."
+    ]
+  }
 }

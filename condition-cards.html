@@ -707,6 +707,16 @@
     stage.textContent = "";
     var root = el("article", "card" + (card.example ? " example" : ""));
 
+    if (card.demo) {
+      var dbn = el("div", "banner");
+      dbn.appendChild(el("b", null, "Demo card"));
+      dbn.appendChild(document.createTextNode(
+        " — released for demonstration only, not clinically reviewed. The fact-check on this " +
+        "condition returned BLOCK; its findings are in the review queue below."
+      ));
+      root.appendChild(dbn);
+    }
+
     if (card.example) {
       var b = el("div", "banner");
       b.appendChild(el("b", null, "Example layout"));

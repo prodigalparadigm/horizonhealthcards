@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Condition Cards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--bg:#F6F8F7;--surface:#fff;--surface-2:#EFF3F2;--ink:#16211F;--ink-2:#566663;
+    --ink-3:#7D8D8A;--line:#DCE3E1;--line-strong:#C3CECB;--accent:#0E6F6B;--accent-ink:#0A5A56;
+    --accent-soft:#E2F0EF;--critical:#A4321E;--critical-soft:#F8E7E3;--warn:#845408;
+    --warn-soft:#FAEFDC;--ok:#2A6A42;--ok-soft:#E4F1E8;
+    --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--radius:6px;}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#101614;--surface:#19211F;--surface-2:#212B29;--ink:#E7EDEB;--ink-2:#9AA9A6;
+    --ink-3:#7A8986;--line:#2A3533;--line-strong:#3A4745;--accent:#4FB8B0;--accent-ink:#6ECCC4;
+    --accent-soft:#13302E;--critical:#EA8A72;--critical-soft:#35201B;--warn:#D6A24A;
+    --warn-soft:#2F2615;--ok:#73C091;--ok-soft:#162C1F;}}
+  :root[data-theme="dark"]{--bg:#101614;--surface:#19211F;--surface-2:#212B29;--ink:#E7EDEB;
+    --ink-2:#9AA9A6;--ink-3:#7A8986;--line:#2A3533;--line-strong:#3A4745;--accent:#4FB8B0;
+    --accent-ink:#6ECCC4;--accent-soft:#13302E;--critical:#EA8A72;--critical-soft:#35201B;
+    --warn:#D6A24A;--warn-soft:#2F2615;--ok:#73C091;--ok-soft:#162C1F;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .shell{max-width:800px;margin:0 auto;padding-inline:16px;padding-block:0 56px}
+  .masthead{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);
+    border-bottom:1px solid var(--line);padding-block:14px 12px;margin-bottom:22px}
+  .brandrow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+    flex-wrap:wrap;margin-bottom:12px}
+  .brand{font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .brand span{color:var(--accent)}
+  .note{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.09em;color:var(--ink-3)}
+  form{display:flex;gap:8px}
+  .field{flex:1 1 auto;min-width:0}
+  label.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  input[type=text]{width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);
+    padding:11px 13px}
+  input::placeholder{color:var(--ink-3)}
+  input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);
+    outline-offset:2px}
+  button{font-family:var(--sans);font-size:14px;font-weight:600;color:#fff;
+    background:var(--accent);border:1px solid var(--accent);border-radius:var(--radius);
+    padding:11px 18px;cursor:pointer;white-space:nowrap}
+  button:hover{background:var(--accent-ink);border-color:var(--accent-ink)}
+  button.ghost{background:transparent;color:var(--accent);border-color:var(--line-strong);
+    font-weight:500;padding:7px 12px;font-size:13px}
+  button.ghost:hover{background:var(--accent-soft);border-color:var(--accent)}
+  .notice{margin-top:10px;font-size:13px;padding:9px 12px;border-radius:var(--radius);
+    background:var(--warn-soft);color:var(--warn)}
+  .notice.phi{background:var(--critical-soft);color:var(--critical)}
+  .chips{margin-top:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .chips .lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.09em;color:var(--ink-3)}
+  .chip{font-size:12.5px;color:var(--ink-2);background:var(--surface);
+    border:1px solid var(--line);border-radius:100px;padding:4px 11px;cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .tabs{display:flex;gap:6px;margin-top:12px}
+  .tab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+    background:transparent;color:var(--ink-3);border:1px solid var(--line);
+    border-radius:var(--radius);padding:6px 12px;font-weight:600}
+  .tab[aria-selected=true]{background:var(--accent-soft);color:var(--accent-ink);
+    border-color:var(--accent)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .banner{font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.45;
+    padding:9px 20px;border-bottom:1px solid var(--line);background:var(--warn-soft);
+    color:var(--warn)}
+  .banner b{font-weight:600;text-transform:uppercase;letter-spacing:.09em}
+  .cardhead{padding:20px 20px 16px;border-bottom:1px solid var(--line)}
+  .cardhead h1{font-size:23px;font-weight:600;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  .segment{font-size:14px;color:var(--ink-2);margin-top:3px}
+  .stamps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+  .stamp{font-family:var(--mono);font-size:11px;font-weight:500;padding:3px 9px;
+    border-radius:4px;background:var(--surface-2);color:var(--ink-2)}
+  .stamp.fresh{background:var(--ok-soft);color:var(--ok)}
+  .stamp.stale{background:var(--warn-soft);color:var(--warn)}
+  section.block{padding:18px 20px;border-bottom:1px solid var(--line)}
+  section.block:last-of-type{border-bottom:none}
+  h2{font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--ink-3);margin:0 0 10px}
+  .summary{margin:0;max-width:62ch}
+  ul.news{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  ul.news li{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:baseline}
+  ul.news .when{font-family:var(--mono);font-size:12px;color:var(--ink-3);
+    font-variant-numeric:tabular-nums}
+  ul.news li.signal p::before{content:"Safety";font-family:var(--mono);font-size:10px;
+    font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--critical);
+    background:var(--critical-soft);padding:2px 6px;border-radius:3px;margin-right:7px}
+  @media (max-width:460px){ul.news li{grid-template-columns:1fr;gap:2px}}
+  .scroller{overflow-x:auto;margin-inline:-20px;padding-inline:20px}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+  thead th{font-family:var(--mono);font-size:10.5px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.08em;color:var(--ink-3);text-align:left;padding:0 10px 7px 0;
+    border-bottom:1px solid var(--line-strong)}
+  tbody td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  td.drug{font-weight:600}
+  td.line,td.route{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+  td.warning{color:var(--critical);font-size:13px}
+  td.warning .boxed{font-family:var(--mono);font-size:9.5px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.07em;display:block;color:var(--critical)}
+  td.src a{color:var(--accent);text-decoration:none;font-size:12.5px}
+  ul.gaps{margin:0;padding-left:18px;color:var(--ink-2);font-size:13.5px}
+  ul.gaps li{margin-bottom:4px}
+  .state{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:30px 20px;text-align:center}
+  .state h3{font-size:17px;margin:0 0 7px}
+  .state p{margin:0 auto;max-width:46ch;color:var(--ink-2);font-size:14px}
+  .qrow{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .qrow:last-child{border-bottom:none}
+  .nm{font-weight:600;font-size:14px}
+  .mt{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:2px}
+  .vb{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.07em;padding:2px 7px;border-radius:3px}
+  .vb.pass{background:var(--ok-soft);color:var(--ok)}
+  .vb.fixes{background:var(--warn-soft);color:var(--warn)}
+  .vb.block{background:var(--critical-soft);color:var(--critical)}
+  .finding{font-size:13.5px;margin-bottom:10px;padding-left:11px;
+    border-left:2px solid var(--line-strong)}
+  .finding.block{border-left-color:var(--critical)}
+  .finding.fix{border-left-color:var(--warn)}
+  .finding .claim{font-weight:600}
+  .finding .says{color:var(--ink-2)}
+  footer{margin-top:20px;font-size:12px;line-height:1.55;color:var(--ink-3);
+    border-top:1px solid var(--line);padding-top:14px;max-width:70ch}
+  footer strong{color:var(--ink-2);font-weight:600}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="masthead">
+    <div class="brandrow">
+      <div class="brand">Condition <span>Cards</span></div>
+      <div class="note" id="envnote">loading</div>
+    </div>
+    <form id="askform" autocomplete="off">
+      <div class="field">
+        <label class="sr" for="q">Medical condition</label>
+        <input type="text" id="q" name="q" placeholder="Type a condition — measles, UC, afib, HFrEF, type 2 diabetes">
+      </div>
+      <button type="submit" id="go">Get card</button>
+    </form>
+    <div class="notice" id="notice" hidden></div>
+    <div class="chips" id="recent" hidden></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" id="tab-cards" role="tab" aria-selected="true" type="button">Cards</button>
+      <button class="tab" id="tab-queue" role="tab" aria-selected="false" type="button">Review queue</button>
+    </div>
+  </div>
+
+  <div id="stage"></div>
+
+  <footer>
+    <strong>Demonstration build.</strong> Cards here are drafts released for demo purposes and
+    are <strong>not clinically reviewed</strong>. Several failed an automated fact-check.
+    This is an informational reference assembled from FDA labeling and published guidelines —
+    not clinical decision support, and not for the care of an individual patient.
+    <strong>Do not enter patient information</strong> — cards cover conditions, not patients.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById("stage"),
+      form = document.getElementById("askform"),
+      input = document.getElementById("q"),
+      go = document.getElementById("go"),
+      noticeEl = document.getElementById("notice"),
+      recentEl = document.getElementById("recent"),
+      envnote = document.getElementById("envnote"),
+      tabCards = document.getElementById("tab-cards"),
+      tabQueue = document.getElementById("tab-queue");
+  var STALE = 90;
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c;
+    if (x != null) n.textContent = x; return n; }
+  function show(n, on) { n.hidden = !on; }
+  function setNotice(m, k) { if (!m) { show(noticeEl, false); return; }
+    noticeEl.className = "notice" + (k ? " " + k : ""); noticeEl.textContent = m;
+    show(noticeEl, true); }
+  function days(iso) { var t = Date.parse(iso); return isNaN(t) ? null
+    : Math.floor((Date.now() - t) / 864e5); }
+  async function api(p, opts) {
+    var r = await fetch(p, opts);
+    if (!r.ok) throw Object.assign(new Error("http " + r.status), { status: r.status });
+    return r.json();
+  }
+
+  /* PHI never leaves the page: screened before any request is made. */
+  var PHI = [
+    /\b\d{3}-\d{2}-\d{4}\b/g, /\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b/g,
+    /\b\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\b/g,
+    /\b\d{1,3}\s*(?:yo|y\/o|y\.o\.|year[-\s]?old|yrs?\s?old)\b/gi,
+    /\b(?:mrn|acct|account|dob|chart)\s*#?\s*[:=]?\s*\w+/gi,
+    /\b(?:[Mm]r|[Mm]rs|[Mm]iss|[Dd]r)\.?\s+[A-Z][a-z]+/g,
+    /\b[Mm]s\.\s*[A-Z][a-z]+/g, /\b\d{6,}\b/g
+  ];
+  function screen(raw) {
+    var c = raw, hits = 0;
+    PHI.forEach(function (re) { c = c.replace(re, function () { hits++; return " "; }); });
+    return { clean: c.replace(/\s{2,}/g, " ").trim(), removed: hits };
+  }
+
+  function renderCard(c) {
+    stage.textContent = "";
+    var root = el("article", "card");
+    if (c.demo) {
+      var b = el("div", "banner");
+      b.appendChild(el("b", null, "Demo card"));
+      b.appendChild(document.createTextNode(
+        " — released for demonstration only, not clinically reviewed. See the review queue " +
+        "for this condition's fact-check findings."));
+      root.appendChild(b);
+    }
+    var head = el("div", "cardhead");
+    head.appendChild(el("h1", null, c.condition));
+    if (c.segment) head.appendChild(el("div", "segment", c.segment));
+    var st = el("div", "stamps");
+    if (c.icd10) st.appendChild(el("span", "stamp", "ICD-10 " + c.icd10));
+    if (c.asOf) { var a = days(c.asOf);
+      st.appendChild(el("span", "stamp " + (a != null && a > STALE ? "stale" : "fresh"),
+        "As of " + c.asOf + (a != null && a > STALE ? " · " + a + "d — review" : ""))); }
+    if (c.clearedBy) st.appendChild(el("span", "stamp", "Released by " + c.clearedBy));
+    head.appendChild(st); root.appendChild(head);
+
+    var s1 = el("section", "block"); s1.appendChild(el("h2", null, "Quick summary"));
+    s1.appendChild(el("p", "summary", c.summary || "Not available.")); root.appendChild(s1);
+
+    var s2 = el("section", "block"); s2.appendChild(el("h2", null, "Quick news update"));
+    if ((c.news || []).length) {
+      var ul = el("ul", "news");
+      c.news.forEach(function (n) {
+        var li = el("li", n.signal ? "signal" : null);
+        li.appendChild(el("span", "when", n.when || "—"));
+        var p = el("p", null, n.what || "");
+        if (n.url) { p.appendChild(document.createTextNode(" "));
+          var k = el("a", null, "source"); k.href = n.url; k.target = "_blank";
+          k.rel = "noopener noreferrer"; p.appendChild(k); }
+        li.appendChild(p); ul.appendChild(li);
+      });
+      s2.appendChild(ul);
+    } else { s2.appendChild(el("p", "summary", "No material change recorded.")); }
+    root.appendChild(s2);
+
+    var s3 = el("section", "block"); s3.appendChild(el("h2", null, "Current drug resources"));
+    var sc = el("div", "scroller"), tb = el("table"), th = el("thead"), hr = el("tr");
+    ["Drug", "Class", "Line", "Route", "Key warning", "Source"].forEach(function (h) {
+      hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    (c.drugs || []).forEach(function (d) {
+      var tr = el("tr");
+      tr.appendChild(el("td", "drug", d.drug));
+      tr.appendChild(el("td", null, d.cls || ""));
+      tr.appendChild(el("td", "line", d.line || ""));
+      tr.appendChild(el("td", "route", d.route || ""));
+      var w = el("td", "warning");
+      if (d.warning) { if (d.boxed) w.appendChild(el("span", "boxed", "Boxed warning"));
+        w.appendChild(document.createTextNode(d.warning)); }
+      tr.appendChild(w);
+      var s = el("td", "src");
+      if (d.url) { var a2 = el("a", null, d.src || "label"); a2.href = d.url;
+        a2.target = "_blank"; a2.rel = "noopener noreferrer"; s.appendChild(a2); }
+      else s.appendChild(document.createTextNode("—"));
+      tr.appendChild(s); body.appendChild(tr);
+    });
+    tb.appendChild(body); sc.appendChild(tb); s3.appendChild(sc); root.appendChild(s3);
+
+    if ((c.notOnCard || []).length) {
+      var s4 = el("section", "block"); s4.appendChild(el("h2", null, "Not on this card"));
+      var g = el("ul", "gaps");
+      c.notOnCard.forEach(function (x) { g.appendChild(el("li", null, x)); });
+      s4.appendChild(g); root.appendChild(s4);
+    }
+    stage.appendChild(root);
+  }
+
+  function vclass(v) {
+    v = String(v || "").toUpperCase();
+    if (!v) return "block";
+    if (v.indexOf("BLOCK") === 0) return "block";
+    if (v.indexOf("PASS WITH") === 0) return "fixes";
+    if (v.indexOf("PASS") === 0) return "pass";
+    return "block";
+  }
+
+  async function renderQueue() {
+    stage.textContent = "";
+    var wrap = el("article", "card");
+    var head = el("div", "cardhead");
+    head.appendChild(el("h1", null, "Review queue"));
+    head.appendChild(el("div", "segment",
+      "Fact-check verdicts on every card on disk. In production a card cannot be released " +
+      "until its verdict passes; in this demo they were released anyway and flagged."));
+    wrap.appendChild(head);
+    var d;
+    try { d = await api("/api/drafts"); }
+    catch (e) { wrap.appendChild(el("div", "state", "Could not load the queue."));
+      stage.appendChild(wrap); return; }
+    d.drafts.forEach(function (row) {
+      var r = el("div", "qrow"), who = el("div");
+      who.appendChild(el("div", "nm", row.condition || row.slug));
+      who.appendChild(el("div", "mt",
+        (row.verdict ? row.blocking + " blocking · " + row.fixes + " fixes · " : "") +
+        row.gaps + " gaps"));
+      r.appendChild(who);
+      var right = el("div");
+      right.style.display = "flex"; right.style.gap = "8px"; right.style.alignItems = "center";
+      right.appendChild(el("span", "vb " + vclass(row.verdict), row.verdict || "No verdict"));
+      var b = el("button", "ghost", "Findings"); b.type = "button";
+      b.addEventListener("click", function () { openFindings(row.slug); });
+      right.appendChild(b); r.appendChild(right); wrap.appendChild(r);
+    });
+    stage.appendChild(wrap);
+  }
+
+  async function openFindings(slug) {
+    var d;
+    try { d = await api("/api/drafts/" + encodeURIComponent(slug)); }
+    catch (e) { setNotice("Could not load that draft."); return; }
+    stage.textContent = "";
+    var wrap = el("article", "card");
+    var head = el("div", "cardhead");
+    head.appendChild(el("h1", null, d.condition || slug));
+    head.appendChild(el("div", "segment", "Fact-check findings"));
+    wrap.appendChild(head);
+    var r = d.review;
+    var sec = el("section", "block");
+    if (!r) {
+      sec.appendChild(el("h2", null, "No verdict"));
+      sec.appendChild(el("p", "summary",
+        "This draft has not been fact-checked. In production it could not be released."));
+    } else {
+      sec.appendChild(el("h2", null, "Verdict"));
+      var top = el("div"); top.style.marginBottom = "12px";
+      top.appendChild(el("span", "vb " + vclass(r.verdict), r.verdict));
+      if (r.checked) { top.appendChild(document.createTextNode(" "));
+        top.appendChild(el("span", "mt", r.checked)); }
+      sec.appendChild(top);
+      (r.blocking || []).forEach(function (b) {
+        var f = el("div", "finding block");
+        f.appendChild(el("div", "claim", b.claim));
+        f.appendChild(el("div", "says", b.says)); sec.appendChild(f); });
+      (r.fixes || []).forEach(function (x) {
+        var f = el("div", "finding fix");
+        f.appendChild(el("div", "claim", x.claim));
+        f.appendChild(el("div", "says", x.change)); sec.appendChild(f); });
+      (r.couldNotVerify || []).forEach(function (c) {
+        var f = el("div", "finding");
+        f.appendChild(el("div", "claim", "Could not verify"));
+        f.appendChild(el("div", "says", c)); sec.appendChild(f); });
+    }
+    wrap.appendChild(sec);
+    var back = el("section", "block");
+    var bb = el("button", "ghost", "Back to queue"); bb.type = "button";
+    bb.addEventListener("click", renderQueue); back.appendChild(bb);
+    wrap.appendChild(back);
+    stage.appendChild(wrap);
+  }
+
+  async function submit() {
+    var raw = input.value;
+    if (!raw || !raw.trim()) return;
+    var sc = screen(raw);
+    if (sc.removed > 0) setNotice("Patient details were removed before searching — cards cover "
+      + "conditions, not patients. Nothing you typed was sent or stored.", "phi");
+    else setNotice(null);
+    if (!sc.clean) { setNotice("Type just the condition — for example, measles.", "phi"); return; }
+
+    go.disabled = true; go.textContent = "Looking…";
+    try {
+      var hit;
+      try { hit = await api("/api/resolve?q=" + encodeURIComponent(sc.clean)); }
+      catch (e) {
+        if (e.status === 404) {
+          stage.textContent = "";
+          var box = el("div", "state");
+          box.appendChild(el("h3", null, "Not in the catalog"));
+          box.appendChild(el("p", null, "“" + sc.clean + "” is not one of the 200 "
+            + "conditions this build knows. A production system would queue it for research."));
+          stage.appendChild(box);
+          return;
+        }
+        throw e;
+      }
+      setTab("cards");
+      if (!hit.hasCard) {
+        stage.textContent = "";
+        var b2 = el("div", "state");
+        b2.appendChild(el("h3", null, "Queued for research"));
+        b2.appendChild(el("p", null, hit.condition + " · ICD-10 " + hit.icd10
+          + " · tier " + hit.tier + ". In the catalog, not yet carded."));
+        stage.appendChild(b2);
+        try { await api("/api/requests", { method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ condition: hit.condition }) }); } catch (e) {}
+        return;
+      }
+      renderCard(await api("/api/cards/" + encodeURIComponent(hit.slug)));
+    } catch (e) {
+      setNotice("Something went wrong reaching the server.");
+    } finally {
+      go.disabled = false; go.textContent = "Get card";
+    }
+  }
+
+  function setTab(which) {
+    tabCards.setAttribute("aria-selected", which === "cards" ? "true" : "false");
+    tabQueue.setAttribute("aria-selected", which === "queue" ? "true" : "false");
+  }
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); submit(); });
+  tabCards.addEventListener("click", function () { setTab("cards"); boot(); });
+  tabQueue.addEventListener("click", function () { setTab("queue"); renderQueue(); });
+
+  async function boot() {
+    try {
+      var h = await api("/healthz");
+      envnote.textContent = h.demo ? "Demo build · " + h.cards + " cards"
+                                   : h.cards + " cleared cards";
+      var l = await api("/api/cards");
+      if (l.cards.length) {
+        recentEl.textContent = "";
+        recentEl.appendChild(el("span", "lbl", "Cards"));
+        l.cards.slice(0, 10).forEach(function (c) {
+          var b = el("button", "chip", c.condition); b.type = "button";
+          b.addEventListener("click", function () {
+            input.value = c.condition; setTab("cards"); submit(); });
+          recentEl.appendChild(b);
+        });
+        show(recentEl, true);
+        renderCard(await api("/api/cards/" + encodeURIComponent(l.cards[0].slug)));
+      } else {
+        stage.textContent = "";
+        var box = el("div", "state");
+        box.appendChild(el("h3", null, "No servable cards"));
+        box.appendChild(el("p", null, "Nothing on disk has passed review."));
+        stage.appendChild(box);
+      }
+    } catch (e) {
+      envnote.textContent = "server unreachable";
+      stage.textContent = "";
+      var b3 = el("div", "state");
+      b3.appendChild(el("h3", null, "Cannot reach the API"));
+      b3.appendChild(el("p", null, "The front end loaded but /healthz did not answer."));
+      stage.appendChild(b3);
+    }
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
