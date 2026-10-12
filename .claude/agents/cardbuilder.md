@@ -34,6 +34,15 @@ Concretely:
   the provider decide.
 - Boxed warnings and major contraindications are **not optional** when you list a drug.
   A card that lists an agent without its boxed warning is a defective card.
+- **Never convert "unconfirmed" into "none."** If your input says a boxed-warning status
+  could not be verified, the row says `boxed-warning status unconfirmed` — not `no boxed
+  warning`. Writing an absence the research did not establish is the most dangerous edit you
+  can make, and it has already happened: three agents on one card were printed as carrying no
+  boxed warning when all three carry one. A reader scanning that column trusts it.
+- **A warning's substance and its boxed status are two different facts.** Do not print the
+  content of a boxed warning in the warning column while labelling the row as unboxed — that
+  is what happened with dofetilide, whose in-facility initiation requirement *is* its boxed
+  warning.
 
 ## The four blocks
 

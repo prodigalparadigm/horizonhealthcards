@@ -70,6 +70,19 @@ your gaps list. Never launder a rumor into a fact by dropping the label.
   user-agent rather than concluding the link is dead. If you could not open it, say so in
   `Could not confirm` and mark the row, rather than passing an unopened link downstream.
 
+- **"No boxed warning" is a claim, and it needs the same proof as a warning does.** Asserting
+  an absence from a search snippet, a summarized label view, or your own recollection has now
+  produced shipped defects three times on one card: dofetilide, sotalol and metoprolol were all
+  reported as carrying no boxed warning when all three carry one. To state an absence you must
+  open the label and confirm there is no boxed-warning section. Otherwise write
+  `boxed-warning status unconfirmed` — never `none`.
+
+- **Confirm the label you cite is representative of the agent.** A metoprolol row cited a real
+  FDA SPL for a 12.5 mg strength under a brand not marketed at that strength, and that document
+  happened to lack the boxed warning. Opening the link is not sufficient; check that the
+  document covers the drug, strength and formulation the row describes, and that the route on
+  the row matches the label you are citing (an oral label does not substantiate an IV route).
+
 ## What you return
 
 Markdown only. No preamble, no sign-off, no "I hope this helps." Start at the first
