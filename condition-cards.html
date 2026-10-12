@@ -1,0 +1,1006 @@
+<title>Condition Cards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #F6F8F7;
+    --surface: #FFFFFF;
+    --surface-2: #EFF3F2;
+    --ink: #16211F;
+    --ink-2: #566663;
+    --ink-3: #7D8D8A;
+    --line: #DCE3E1;
+    --line-strong: #C3CECB;
+    --accent: #0E6F6B;
+    --accent-ink: #0A5A56;
+    --accent-soft: #E2F0EF;
+    --critical: #A4321E;
+    --critical-soft: #F8E7E3;
+    --warn: #845408;
+    --warn-soft: #FAEFDC;
+    --ok: #2A6A42;
+    --ok-soft: #E4F1E8;
+    --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --radius: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101614;
+      --surface: #19211F;
+      --surface-2: #212B29;
+      --ink: #E7EDEB;
+      --ink-2: #9AA9A6;
+      --ink-3: #7A8986;
+      --line: #2A3533;
+      --line-strong: #3A4745;
+      --accent: #4FB8B0;
+      --accent-ink: #6ECCC4;
+      --accent-soft: #13302E;
+      --critical: #EA8A72;
+      --critical-soft: #35201B;
+      --warn: #D6A24A;
+      --warn-soft: #2F2615;
+      --ok: #73C091;
+      --ok-soft: #162C1F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101614;
+    --surface: #19211F;
+    --surface-2: #212B29;
+    --ink: #E7EDEB;
+    --ink-2: #9AA9A6;
+    --ink-3: #7A8986;
+    --line: #2A3533;
+    --line-strong: #3A4745;
+    --accent: #4FB8B0;
+    --accent-ink: #6ECCC4;
+    --accent-soft: #13302E;
+    --critical: #EA8A72;
+    --critical-soft: #35201B;
+    --warn: #D6A24A;
+    --warn-soft: #2F2615;
+    --ok: #73C091;
+    --ok-soft: #162C1F;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  * { box-sizing: border-box; }
+
+  .shell { max-width: 780px; margin: 0 auto; padding-inline: 16px; padding-block: 0 56px; }
+
+  /* ---- masthead + input ---- */
+  .masthead {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding-block: 14px 12px; margin-bottom: 22px;
+  }
+  .brandrow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .brand { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand span { color: var(--accent); }
+  .brandnote { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-3); }
+
+  form.ask { display: flex; gap: 8px; }
+  .field { position: relative; flex: 1 1 auto; min-width: 0; }
+  label.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  input[type="text"] {
+    width: 100%; font-family: var(--sans); font-size: 16px; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--radius); padding: 11px 13px;
+  }
+  input[type="text"]::placeholder { color: var(--ink-3); }
+  input[type="text"]:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  button {
+    font-family: var(--sans); font-size: 14px; font-weight: 600; color: #fff;
+    background: var(--accent); border: 1px solid var(--accent);
+    border-radius: var(--radius); padding: 11px 18px; cursor: pointer; white-space: nowrap;
+  }
+  button:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+  button.ghost {
+    background: transparent; color: var(--accent); border-color: var(--line-strong);
+    font-weight: 500; padding: 7px 12px; font-size: 13px;
+  }
+  button.ghost:hover { background: var(--accent-soft); border-color: var(--accent); }
+  button[disabled] { opacity: 0.55; cursor: default; }
+
+  .resolved { margin-top: 10px; font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .resolved b { color: var(--ink); font-weight: 600; }
+  .notice {
+    margin-top: 10px; font-size: 13px; padding: 9px 12px; border-radius: var(--radius);
+    background: var(--warn-soft); color: var(--warn); border: 1px solid transparent;
+  }
+  .notice.phi { background: var(--critical-soft); color: var(--critical); }
+
+  .recent { margin-top: 12px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .recent .lbl { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-3); }
+  .chip {
+    font-family: var(--sans); font-size: 12.5px; color: var(--ink-2); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 100px; padding: 4px 11px; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+
+  /* ---- card ---- */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .card.example { border-style: dashed; border-color: var(--line-strong); }
+  .banner {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; line-height: 1.45;
+    padding: 9px 20px; background: var(--warn-soft); color: var(--warn);
+    border-bottom: 1px solid var(--line);
+  }
+  .banner b { font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; }
+
+  .cardhead { padding: 20px 20px 16px; border-bottom: 1px solid var(--line); }
+  .cardhead h1 { font-size: 23px; font-weight: 600; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .segment { font-size: 14px; color: var(--ink-2); margin-top: 3px; }
+  .stamps { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .stamp {
+    font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.02em;
+    padding: 3px 9px; border-radius: 4px; background: var(--surface-2); color: var(--ink-2);
+  }
+  .stamp.fresh { background: var(--ok-soft); color: var(--ok); }
+  .stamp.stale { background: var(--warn-soft); color: var(--warn); }
+  .stamp.cleared { background: var(--accent-soft); color: var(--accent-ink); }
+
+  section.block { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  section.block:last-of-type { border-bottom: none; }
+  h2 {
+    font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-3); margin: 0 0 10px;
+  }
+  .summary { margin: 0; max-width: 62ch; }
+
+  ul.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  ul.news li { display: grid; grid-template-columns: 74px 1fr; gap: 12px; align-items: baseline; }
+  ul.news .when { font-family: var(--mono); font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  ul.news .what { margin: 0; }
+  ul.news li.signal .what::before {
+    content: "Safety"; font-family: var(--mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--critical);
+    background: var(--critical-soft); padding: 2px 6px; border-radius: 3px; margin-right: 7px;
+  }
+  @media (max-width: 460px) {
+    ul.news li { grid-template-columns: 1fr; gap: 2px; }
+  }
+
+  .scroller { overflow-x: auto; margin-inline: -20px; padding-inline: 20px; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 13.5px; }
+  thead th {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--ink-3); text-align: left;
+    padding: 0 10px 7px 0; border-bottom: 1px solid var(--line-strong);
+  }
+  tbody td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.drug { font-weight: 600; }
+  td.line, td.route { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+  td.warning { color: var(--critical); font-size: 13px; }
+  td.warning .boxed {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.07em; display: block; margin-bottom: 1px; color: var(--critical);
+  }
+  td.src a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); font-size: 12.5px; }
+  td.src a:hover { border-bottom-color: var(--accent); }
+
+  ul.gaps { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13.5px; }
+  ul.gaps li { margin-bottom: 4px; }
+
+  /* ---- states ---- */
+  .state { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 30px 20px; text-align: center; }
+  .state h3 { font-size: 17px; font-weight: 600; margin: 0 0 7px; letter-spacing: -0.01em; }
+  .state p { margin: 0 auto; max-width: 46ch; color: var(--ink-2); font-size: 14px; }
+  .state .acts { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .pulse { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 7px; animation: breathe 1.8s ease-in-out infinite; }
+  @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+
+  footer.legal {
+    margin-top: 20px; font-size: 12px; line-height: 1.55; color: var(--ink-3);
+    border-top: 1px solid var(--line); padding-top: 14px; max-width: 70ch;
+  }
+  footer.legal strong { color: var(--ink-2); font-weight: 600; }
+
+  /* ---- review dock (reviewers only) ---- */
+  #reviewdock { margin-top: 18px; }
+  .dock { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+  .dockhead {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    padding: 13px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2);
+  }
+  .dockhead .t { font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2); }
+  .dockhead .n { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  ul.queue { list-style: none; margin: 0; padding: 0; }
+  ul.queue li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  ul.queue li:last-child { border-bottom: none; }
+  ul.queue .who { min-width: 0; }
+  ul.queue .nm { font-weight: 600; font-size: 14px; }
+  ul.queue .mt, .reviewpanel .mt { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+  .vb { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 7px; border-radius: 3px; }
+  .vb.pass { background: var(--ok-soft); color: var(--ok); }
+  .vb.fixes { background: var(--warn-soft); color: var(--warn); }
+  .vb.block { background: var(--critical-soft); color: var(--critical); }
+  .dockempty { padding: 16px 18px; font-size: 13.5px; color: var(--ink-2); }
+
+  .banner.review { background: var(--accent-soft); color: var(--accent-ink); }
+  .reviewpanel { padding: 18px 20px; background: var(--surface-2); border-top: 1px solid var(--line); }
+  .reviewpanel h2 { margin-bottom: 12px; }
+  .finding { font-size: 13.5px; margin-bottom: 10px; padding-left: 11px; border-left: 2px solid var(--line-strong); }
+  .finding.block { border-left-color: var(--critical); }
+  .finding.fix { border-left-color: var(--warn); }
+  .finding .claim { font-weight: 600; }
+  .finding .says { color: var(--ink-2); }
+  .finding a { color: var(--accent); }
+  .acts2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+  button.approve { background: var(--ok); border-color: var(--ok); }
+  button.approve:hover { background: var(--ok); border-color: var(--ok); filter: brightness(1.1); }
+  textarea {
+    width: 100%; font-family: var(--sans); font-size: 14px; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
+    padding: 9px 11px; min-height: 64px; resize: vertical;
+  }
+  textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="shell">
+  <div class="masthead">
+    <div class="brandrow">
+      <div class="brand">Condition <span>Cards</span></div>
+      <div class="brandnote" id="envnote">Reviewer-cleared reference</div>
+    </div>
+    <form class="ask" id="askform" autocomplete="off">
+      <div class="field">
+        <label class="sr" for="condinput">Medical condition</label>
+        <input type="text" id="condinput" name="condition" placeholder="Type a condition — UC, afib, HFrEF, type 2 diabetes">
+      </div>
+      <button type="submit" id="askbtn">Get card</button>
+    </form>
+    <div class="resolved" id="resolved" hidden></div>
+    <div class="notice" id="notice" hidden></div>
+    <div class="recent" id="recent" hidden></div>
+  </div>
+
+  <div id="stage"></div>
+  <div id="reviewdock" hidden></div>
+
+  <footer class="legal">
+    <strong>Informational reference only.</strong> Cards summarize FDA labeling and published
+    society guidelines. They are not a treatment recommendation for an individual patient and
+    do not replace clinical judgment. Check the as-of date before relying on a card.
+    <strong>Do not enter patient information</strong> — cards cover conditions, not patients.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var form = document.getElementById("askform");
+  var input = document.getElementById("condinput");
+  var askbtn = document.getElementById("askbtn");
+  var resolvedEl = document.getElementById("resolved");
+  var noticeEl = document.getElementById("notice");
+  var recentEl = document.getElementById("recent");
+  var envnote = document.getElementById("envnote");
+
+  var db = null, sample = null, user = null, unsub = null, unsubReq = null;
+  var STALE_DAYS = 90;
+  var canReview = false;
+  var reviewdock = document.getElementById("reviewdock");
+  var reviewerName = "";
+
+  /* ---------------- example card: layout only ---------------- */
+  var EXAMPLE = {
+    example: true,
+    condition: "Ulcerative colitis",
+    segment: "Moderate-to-severe, adult",
+    icd10: "K51.90",
+    asOf: "",
+    summary: "Chronic relapsing mucosal inflammation of the colon, continuous from the rectum proximally. Presents with bloody diarrhea, urgency and tenesmus; severity is graded endoscopically and by symptom indices. Management escalates from 5-ASA in mild disease to advanced therapy — biologics, JAK inhibitors, S1P modulators — in moderate-to-severe disease, with mucosal healing rather than symptom control as the treatment target.",
+    news: [
+      { when: "2023", what: "Mirikizumab (IL-23p19 antagonist) approved by FDA for moderately-to-severely active UC, adding a new mechanism class to advanced therapy.", signal: false },
+      { when: "2021", what: "Class-wide boxed warning extended across JAK inhibitors covering mortality, MACE, malignancy and thrombosis — changes the risk conversation for tofacitinib and upadacitinib in UC.", signal: true },
+      { when: "2021", what: "Ozanimod (S1P receptor modulator) approved for moderately-to-severely active UC; oral, with first-dose cardiac and ophthalmologic monitoring requirements.", signal: false }
+    ],
+    drugs: [
+      { drug: "Mesalamine", cls: "5-ASA", line: "1L mild", route: "PO / PR", warning: "", src: "Drugs@FDA" },
+      { drug: "Infliximab", cls: "Anti-TNF", line: "Advanced", route: "IV", warning: "Serious infections; malignancy", boxed: true, src: "Drugs@FDA" },
+      { drug: "Vedolizumab", cls: "Anti-integrin", line: "Advanced", route: "IV / SC", warning: "No boxed warning; infection risk per label", src: "Drugs@FDA" },
+      { drug: "Upadacitinib", cls: "JAK inhibitor", line: "Advanced", route: "PO", warning: "Mortality, MACE, malignancy, thrombosis", boxed: true, src: "Drugs@FDA" },
+      { drug: "Ozanimod", cls: "S1P modulator", line: "Advanced", route: "PO", warning: "No boxed warning; cardiac/ophtho monitoring", src: "Drugs@FDA" }
+    ],
+    notOnCard: [
+      "Per-claim source links — a cleared card cites a specific label or guideline section on every row.",
+      "Current guideline version and year, which a cleared card names explicitly.",
+      "Dosing, monitoring schedules and pregnancy considerations."
+    ]
+  };
+  var SRC_URLS = {
+    "Drugs@FDA": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+    "ACG": "https://gi.org/guidelines/"
+  };
+
+  /* ---------------- helpers ---------------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function slugify(s) {
+    return String(s).toLowerCase().trim()
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
+  }
+  function daysSince(iso) {
+    var t = Date.parse(iso);
+    if (isNaN(t)) return null;
+    return Math.floor((Date.now() - t) / 86400000);
+  }
+  function show(node, on) { node.hidden = !on; }
+  function setNotice(msg, kind) {
+    if (!msg) { show(noticeEl, false); return; }
+    noticeEl.className = "notice" + (kind ? " " + kind : "");
+    noticeEl.textContent = msg;
+    show(noticeEl, true);
+  }
+
+  /* ---------------- PHI screen: runs before anything leaves the page ---------------- */
+  var PHI_PATTERNS = [
+    /\b\d{3}-\d{2}-\d{4}\b/g,                              // SSN
+    /\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b/g,                  // phone
+    /\b\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\b/g,              // dates
+    /\b\d{1,3}\s*(?:yo|y\/o|y\.o\.|year[-\s]?old|yrs?\s?old)\b/gi, // age
+    /\b(?:mrn|acct|account|dob|chart)\s*#?\s*[:=]?\s*\w+/gi,// identifiers
+    /\b(?:[Mm]r|[Mm]rs|[Mm]iss|[Dd]r)\.?\s+[A-Z][a-z]+/g, // titled names
+    /\b[Mm]s\.\s*[A-Z][a-z]+/g,                            // "Ms." only — bare MS is a condition
+    /\b\d{6,}\b/g                                          // long id numbers
+  ];
+  function screenPHI(raw) {
+    var cleaned = raw, hits = 0;
+    PHI_PATTERNS.forEach(function (re) {
+      cleaned = cleaned.replace(re, function () { hits++; return " "; });
+    });
+    cleaned = cleaned.replace(/\s{2,}/g, " ").trim();
+    return { clean: cleaned, removed: hits };
+  }
+
+  /* ---------------- normalization ---------------- */
+  var LOCAL_MAP = {
+    "uc": "Ulcerative colitis", "ulc colitis": "Ulcerative colitis",
+    "afib": "Atrial fibrillation", "a fib": "Atrial fibrillation", "af": "Atrial fibrillation",
+    "chf": "Heart failure", "hf": "Heart failure",
+    "copd": "Chronic obstructive pulmonary disease",
+    "t2dm": "Type 2 diabetes mellitus", "dm2": "Type 2 diabetes mellitus",
+    "sugar": "Type 2 diabetes mellitus", "sugar diabetes": "Type 2 diabetes mellitus",
+    "ckd": "Chronic kidney disease", "ibd": "Inflammatory bowel disease",
+    "ra": "Rheumatoid arthritis", "ms": "Multiple sclerosis", "cad": "Coronary artery disease"
+  };
+
+  async function resolveCondition(text) {
+    var key = text.toLowerCase().trim();
+    if (LOCAL_MAP[key]) {
+      return { condition: LOCAL_MAP[key], segment: "", isBrand: false, alternatives: [], confident: true };
+    }
+    if (!sample) {
+      return { condition: text, segment: "", isBrand: false, alternatives: [], confident: false };
+    }
+    var prompt = [
+      "You normalize search input from a clinical office into a canonical medical condition.",
+      "You are given one short phrase. It contains no patient information.",
+      "",
+      "Input: " + JSON.stringify(text),
+      "",
+      "Return JSON only, this exact shape:",
+      '{"condition":"canonical condition name","segment":"clinically meaningful segment or empty string",',
+      '"isBrand":true|false,"brandIndications":["condition",...],"alternatives":["condition",...]}',
+      "",
+      "Rules:",
+      "- condition: the standard clinical name, title case. Correct misspellings.",
+      "- segment: fill only when the condition splits into segments with different management",
+      "  (e.g. heart failure -> 'HFrEF'); otherwise empty string.",
+      "- isBrand: true if the input is a drug brand or generic name rather than a condition.",
+      "  Then put its main indications in brandIndications and leave condition as the input.",
+      "- alternatives: up to 3 other conditions the input could plausibly mean. Empty if unambiguous.",
+      "- Never invent a condition. If the input is not a medical condition or drug, set condition to an empty string."
+    ].join("\n");
+    try {
+      var out = await sample.json(prompt, { modelTier: "quick", cache: true });
+      if (!out || typeof out !== "object") throw new Error("shape");
+      return {
+        condition: String(out.condition || "").slice(0, 120),
+        segment: String(out.segment || "").slice(0, 120),
+        isBrand: !!out.isBrand,
+        brandIndications: Array.isArray(out.brandIndications) ? out.brandIndications.slice(0, 5).map(String) : [],
+        alternatives: Array.isArray(out.alternatives) ? out.alternatives.slice(0, 3).map(String) : [],
+        confident: true
+      };
+    } catch (e) {
+      return { condition: text, segment: "", isBrand: false, alternatives: [], confident: false };
+    }
+  }
+
+  /* ---------------- rendering ---------------- */
+  function renderResolved(res, rawKey) {
+    resolvedEl.textContent = "";
+    resolvedEl.appendChild(el("span", null, "Showing:"));
+    var name = el("b", null, res.condition + (res.segment ? " — " + res.segment : ""));
+    resolvedEl.appendChild(name);
+    var change = el("button", "ghost", "Change");
+    change.type = "button";
+    change.addEventListener("click", function () {
+      input.value = rawKey; input.focus(); input.select();
+    });
+    resolvedEl.appendChild(change);
+    (res.alternatives || []).forEach(function (alt) {
+      var b = el("button", "chip", "Did you mean " + alt + "?");
+      b.type = "button";
+      b.addEventListener("click", function () { input.value = alt; submit(); });
+      resolvedEl.appendChild(b);
+    });
+    show(resolvedEl, true);
+  }
+
+  function renderCard(card) {
+    stage.textContent = "";
+    var root = el("article", "card" + (card.example ? " example" : ""));
+
+    if (card.example) {
+      var b = el("div", "banner");
+      b.appendChild(el("b", null, "Example layout"));
+      b.appendChild(document.createTextNode(
+        " — this is a demonstration of the card format, not a reviewer-cleared card. " +
+        "Sources are placeholders. Do not use it as a clinical reference. Search a condition above to request a cleared card."
+      ));
+      root.appendChild(b);
+    }
+
+    var head = el("div", "cardhead");
+    head.appendChild(el("h1", null, card.condition));
+    if (card.segment) head.appendChild(el("div", "segment", card.segment));
+    var stamps = el("div", "stamps");
+    if (card.icd10) stamps.appendChild(el("span", "stamp", "ICD-10 " + card.icd10));
+    if (card.asOf) {
+      var age = daysSince(card.asOf);
+      var cls = age != null && age > STALE_DAYS ? "stamp stale" : "stamp fresh";
+      var txt = "As of " + card.asOf + (age != null && age > STALE_DAYS ? " · " + age + "d — review" : "");
+      stamps.appendChild(el("span", cls, txt));
+    } else {
+      stamps.appendChild(el("span", "stamp", "No as-of date"));
+    }
+    if (card.clearedAt) stamps.appendChild(el("span", "stamp cleared", "Cleared " + card.clearedAt));
+    else if (!card.example) stamps.appendChild(el("span", "stamp stale", "Not cleared"));
+    head.appendChild(stamps);
+    root.appendChild(head);
+
+    var s1 = el("section", "block");
+    s1.appendChild(el("h2", null, "Quick summary"));
+    s1.appendChild(el("p", "summary", card.summary || "Not available."));
+    root.appendChild(s1);
+
+    var s2 = el("section", "block");
+    s2.appendChild(el("h2", null, "Quick news update"));
+    if (card.news && card.news.length) {
+      var ul = el("ul", "news");
+      card.news.forEach(function (n) {
+        var li = el("li", n.signal ? "signal" : null);
+        li.appendChild(el("span", "when", n.when || "—"));
+        var p = el("p", "what");
+        p.appendChild(document.createTextNode(n.what || ""));
+        if (n.url) {
+          p.appendChild(document.createTextNode(" "));
+          var a = el("a", null, "source");
+          a.href = n.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+          p.appendChild(a);
+        }
+        li.appendChild(p);
+        ul.appendChild(li);
+      });
+      s2.appendChild(ul);
+    } else {
+      s2.appendChild(el("p", "summary", "No material change recorded."));
+    }
+    root.appendChild(s2);
+
+    var s3 = el("section", "block");
+    s3.appendChild(el("h2", null, "Current drug resources"));
+    var scroller = el("div", "scroller");
+    var table = el("table");
+    var thead = el("thead"), hr = el("tr");
+    ["Drug", "Class", "Line", "Route", "Key warning", "Source"].forEach(function (h) {
+      hr.appendChild(el("th", null, h));
+    });
+    thead.appendChild(hr); table.appendChild(thead);
+    var tbody = el("tbody");
+    (card.drugs || []).forEach(function (d) {
+      var tr = el("tr");
+      tr.appendChild(el("td", "drug", d.drug));
+      tr.appendChild(el("td", null, d.cls || ""));
+      tr.appendChild(el("td", "line", d.line || ""));
+      tr.appendChild(el("td", "route", d.route || ""));
+      var tdw = el("td", "warning");
+      if (d.warning) {
+        if (d.boxed) tdw.appendChild(el("span", "boxed", "Boxed warning"));
+        tdw.appendChild(document.createTextNode(d.warning));
+      }
+      tr.appendChild(tdw);
+      var tds = el("td", "src");
+      var href = d.url || SRC_URLS[d.src] || null;
+      if (href) {
+        var a = el("a", null, d.src || "label");
+        a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer";
+        tds.appendChild(a);
+      } else {
+        tds.appendChild(document.createTextNode("—"));
+      }
+      tr.appendChild(tds);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    scroller.appendChild(table);
+    s3.appendChild(scroller);
+    root.appendChild(s3);
+
+    if (card.notOnCard && card.notOnCard.length) {
+      var s4 = el("section", "block");
+      s4.appendChild(el("h2", null, "Not on this card"));
+      var gl = el("ul", "gaps");
+      card.notOnCard.forEach(function (g) { gl.appendChild(el("li", null, g)); });
+      s4.appendChild(gl);
+      root.appendChild(s4);
+    }
+
+    stage.appendChild(root);
+  }
+
+  var STAGES = {
+    queued: ["Queued for research",
+      "No cleared card exists for NAME yet. The request is in the queue. Cards are researched, " +
+      "drafted and then checked by a reviewer before anyone sees them."],
+    researching: ["Research under way",
+      "Sources are being gathered for NAME. The draft goes to a reviewer next."],
+    in_review: ["With a reviewer",
+      "A draft card for NAME exists and is being checked against its sources. It appears here " +
+      "the moment it clears review — nothing unreviewed is shown."],
+    returned: ["Sent back for revision",
+      "A reviewer found something wrong in the draft for NAME and returned it. A corrected " +
+      "draft goes back through review."]
+  };
+
+  function renderPending(name, status) {
+    var stage_ = STAGES[status] || STAGES.queued;
+    stage.textContent = "";
+    var box = el("div", "state");
+    var h = el("h3");
+    h.appendChild(el("span", "pulse"));
+    h.appendChild(document.createTextNode(stage_[0]));
+    box.appendChild(h);
+    box.appendChild(el("p", null, stage_[1].replace(/NAME/g, name)));
+    var foot = el("p", null, "You can leave this page open — it updates on its own.");
+    foot.style.marginTop = "10px";
+    box.appendChild(foot);
+    stage.appendChild(box);
+  }
+
+  function renderUnavailable(name, why) {
+    stage.textContent = "";
+    var box = el("div", "state");
+    box.appendChild(el("h3", null, "Can't request a card right now"));
+    box.appendChild(el("p", null, why + " You can still read any cleared card already on this page."));
+    var acts = el("div", "acts");
+    var back = el("button", "ghost", "Show example layout");
+    back.type = "button";
+    back.addEventListener("click", function () { renderCard(EXAMPLE); });
+    acts.appendChild(back);
+    box.appendChild(acts);
+    stage.appendChild(box);
+  }
+
+  function renderBrand(res) {
+    stage.textContent = "";
+    var box = el("div", "state");
+    box.appendChild(el("h3", null, "That looks like a drug, not a condition"));
+    box.appendChild(el("p", null,
+      "Cards cover conditions. " + res.condition + " is used in the conditions below — pick one."
+    ));
+    var acts = el("div", "acts");
+    (res.brandIndications || []).forEach(function (ind) {
+      var b = el("button", "ghost", ind);
+      b.type = "button";
+      b.addEventListener("click", function () { input.value = ind; submit(); });
+      acts.appendChild(b);
+    });
+    if (!acts.childNodes.length) acts.appendChild(el("p", null, "No indications on file."));
+    box.appendChild(acts);
+    stage.appendChild(box);
+  }
+
+  function renderRecent(cards) {
+    recentEl.textContent = "";
+    if (!cards || !cards.length) { show(recentEl, false); return; }
+    recentEl.appendChild(el("span", "lbl", "Cleared cards"));
+    cards.slice(0, 8).forEach(function (c) {
+      var b = el("button", "chip", c.condition || c.slug);
+      b.type = "button";
+      b.addEventListener("click", function () { input.value = c.condition || c.slug; submit(); });
+      recentEl.appendChild(b);
+    });
+    show(recentEl, true);
+  }
+
+  /* ---------------- flow ---------------- */
+  var busy = false;
+
+  async function submit() {
+    if (busy) return;
+    var raw = input.value;
+    if (!raw || !raw.trim()) return;
+
+    var screened = screenPHI(raw);
+    if (screened.removed > 0) {
+      setNotice("Patient details were removed before searching — cards cover conditions, not patients. Nothing you typed was sent or stored.", "phi");
+    } else {
+      setNotice(null);
+    }
+    if (!screened.clean) {
+      setNotice("Type just the condition — for example, atrial fibrillation.", "phi");
+      return;
+    }
+
+    busy = true;
+    askbtn.disabled = true;
+    askbtn.textContent = "Looking…";
+    try {
+      var res = await resolveCondition(screened.clean);
+      if (!res.condition) {
+        setNotice("That doesn't look like a medical condition. Try a condition name or abbreviation.");
+        return;
+      }
+      if (res.isBrand && res.brandIndications && res.brandIndications.length) {
+        renderResolved(res, screened.clean);
+        renderBrand(res);
+        return;
+      }
+      renderResolved(res, screened.clean);
+      var slug = slugify(res.condition + (res.segment ? "-" + res.segment : ""));
+
+      if (!db) {
+        renderUnavailable(res.condition, "This page can't reach its card store — you may be signed out.");
+        return;
+      }
+      await watchCard(slug, res);
+    } finally {
+      busy = false;
+      askbtn.disabled = false;
+      askbtn.textContent = "Get card";
+    }
+  }
+
+  function stopWatches() {
+    [unsub, unsubReq].forEach(function (f) { if (f) { try { f(); } catch (e) {} } });
+    unsub = null; unsubReq = null;
+  }
+
+  async function watchCard(slug, res) {
+    stopWatches();
+    var cleared = false;
+    var status = "queued";
+    function paint() { if (!cleared) renderPending(res.condition, status); }
+
+    var cardDoc = db.doc("cards/" + slug);
+    var reqDoc = db.doc("requests/" + slug);
+
+    try {
+      unsub = cardDoc.onSnapshot(function (snap) {
+        var card = snap && (snap.data ? snap.data() : snap);
+        if (card && card.status === "cleared") { cleared = true; renderCard(card); }
+        else { cleared = false; paint(); }
+      }, function () { renderUnavailable(res.condition, "The card store didn't answer."); });
+    } catch (e) {
+      try {
+        var snap = await cardDoc.get();
+        var card = snap && (snap.data ? snap.data() : snap);
+        if (card && card.status === "cleared") { cleared = true; renderCard(card); }
+      } catch (e2) {
+        renderUnavailable(res.condition, "The card store didn't answer.");
+        return;
+      }
+    }
+
+    // Where the request stands, so staff see progress instead of a dead end.
+    try {
+      unsubReq = reqDoc.onSnapshot(function (snap) {
+        var r = snap && (snap.data ? snap.data() : snap);
+        if (r && r.status) { status = r.status; paint(); }
+        else if (!cleared) { requestCard(slug, res); }
+      }, function () {});
+    } catch (e) {
+      if (!cleared) requestCard(slug, res);
+    }
+  }
+
+  async function requestCard(slug, res) {
+    renderPending(res.condition, "queued");
+    try {
+      await db.doc("requests/" + slug).set({
+        slug: slug,
+        condition: res.condition,
+        segment: res.segment || "",
+        status: "queued",
+        requestedAt: new Date().toISOString()
+      });
+    } catch (e) { /* read-only viewer: the pending message still stands */ }
+  }
+
+  /* ---------------- review queue — reviewers only ---------------- */
+  function verdictClass(v) {
+    v = String(v || "").toUpperCase();
+    if (!v) return "block";
+    if (v.indexOf("BLOCK") === 0) return "block";
+    if (v.indexOf("PASS WITH") === 0) return "fixes";
+    if (v.indexOf("PASS") === 0) return "pass";
+    return "block";
+  }
+
+  // Fails closed on purpose: only an explicit PASS verdict can be cleared. A draft with a
+  // missing, empty or unrecognized verdict is not clearable from the UI.
+  function clearable(r) {
+    var c = verdictClass(r && r.verdict);
+    return c === "pass" || c === "fixes";
+  }
+
+  async function loadQueue() {
+    if (!db || !canReview) { show(reviewdock, false); return; }
+    try {
+      var q = await db.collection("drafts").where("status", "==", "pending_review").limit(25).get();
+      var rows = (q && q.docs ? q.docs.map(function (d) { return d.data ? d.data() : d; }) : q) || [];
+      renderQueue(rows);
+    } catch (e) { show(reviewdock, false); }
+  }
+
+  function renderQueue(rows) {
+    reviewdock.textContent = "";
+    var dock = el("div", "dock");
+    var head = el("div", "dockhead");
+    head.appendChild(el("span", "t", "Review queue"));
+    var right = el("div");
+    right.style.display = "flex"; right.style.gap = "10px"; right.style.alignItems = "center";
+    right.appendChild(el("span", "n", rows.length
+      ? rows.length + (rows.length === 1 ? " draft awaiting review" : " drafts awaiting review")
+      : "nothing awaiting review"));
+    var refresh = el("button", "ghost", "Refresh");
+    refresh.type = "button";
+    refresh.addEventListener("click", function () { refresh.disabled = true; loadQueue(); });
+    right.appendChild(refresh);
+    head.appendChild(right);
+    dock.appendChild(head);
+
+    if (!rows.length) {
+      dock.appendChild(el("div", "dockempty",
+        "No drafts are waiting. A card staff request appears here once research and fact-check " +
+        "have run on it — then it is yours to clear or send back."));
+    } else {
+      var ul = el("ul", "queue");
+      rows.forEach(function (d) {
+        var li = el("li");
+        var who = el("div", "who");
+        who.appendChild(el("div", "nm", d.condition + (d.segment ? " — " + d.segment : "")));
+        who.appendChild(el("div", "mt",
+          "drafted " + String(d.builtAt || "—").slice(0, 10) +
+          " · " + ((d.drugs || []).length) + " agents" +
+          " · " + ((d.news || []).length) + " news items"));
+        li.appendChild(who);
+
+        var right = el("div");
+        right.style.display = "flex"; right.style.gap = "8px"; right.style.alignItems = "center";
+        right.appendChild(d.review && d.review.verdict
+          ? el("span", "vb " + verdictClass(d.review.verdict), d.review.verdict)
+          : el("span", "vb block", "No verdict"));
+        var open = el("button", "ghost", "Review");
+        open.type = "button";
+        open.addEventListener("click", function () { openReview(d); });
+        right.appendChild(open);
+        li.appendChild(right);
+        ul.appendChild(li);
+      });
+      dock.appendChild(ul);
+    }
+    reviewdock.appendChild(dock);
+    show(reviewdock, true);
+  }
+
+  function findingNode(cls, head, body, url) {
+    var f = el("div", "finding " + cls);
+    f.appendChild(el("div", "claim", head));
+    if (body) f.appendChild(el("div", "says", body));
+    if (url) {
+      var a = el("a", null, "source checked");
+      a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      var line = el("div");
+      line.appendChild(a);
+      f.appendChild(line);
+    }
+    return f;
+  }
+
+  function reviewPanel(d) {
+    var r = d.review || {};
+    var wrap = el("div", "reviewpanel");
+    wrap.appendChild(el("h2", null, "Fact-check report"));
+
+    var top = el("div");
+    top.style.display = "flex"; top.style.gap = "8px"; top.style.alignItems = "center";
+    top.style.flexWrap = "wrap"; top.style.marginBottom = "12px";
+    if (r.verdict) top.appendChild(el("span", "vb " + verdictClass(r.verdict), r.verdict));
+    if (r.checked) top.appendChild(el("span", "mt", r.checked));
+    wrap.appendChild(top);
+
+    (r.blocking || []).forEach(function (b) {
+      wrap.appendChild(findingNode("block", b.claim, b.says, b.url));
+    });
+    (r.fixes || []).forEach(function (f) {
+      wrap.appendChild(findingNode("fix", f.claim, f.change, f.url));
+    });
+    (r.couldNotVerify || []).forEach(function (c) {
+      wrap.appendChild(findingNode("", "Could not verify", c, null));
+    });
+    if (r.verified && r.verified.length) {
+      wrap.appendChild(findingNode("", r.verified.length + " claims verified against a primary source",
+        r.verified.slice(0, 4).join(" · "), null));
+    }
+
+    var blocked = !clearable(r);
+    var noVerdict = !(r && r.verdict);
+    var acts = el("div", "acts2");
+    var ok = el("button", "approve",
+      noVerdict ? "No verdict — cannot clear" : blocked ? "Blocked — cannot clear" : "Clear for staff");
+    ok.type = "button";
+    if (blocked) {
+      ok.disabled = true;
+      ok.title = noVerdict
+        ? "This draft has no fact-check verdict. It cannot be cleared until one is attached."
+        : "The fact-check found a blocking defect. Send it back instead.";
+    } else {
+      // Two steps: clearing puts this card in front of every staff member at once.
+      var armed = false;
+      ok.addEventListener("click", function () {
+        if (!armed) {
+          armed = true;
+          ok.textContent = "Confirm — show this to staff";
+          ok.title = "Click again to clear. This card becomes visible to all staff immediately.";
+          return;
+        }
+        approve(d, ok);
+      });
+    }
+    acts.appendChild(ok);
+
+    var back = el("button", "ghost", "Send back");
+    back.type = "button";
+    acts.appendChild(back);
+    wrap.appendChild(acts);
+
+    var noteWrap = el("div");
+    noteWrap.hidden = true;
+    noteWrap.style.marginTop = "12px";
+    var ta = el("textarea");
+    ta.id = "sendback-note-" + d.slug;
+    ta.placeholder = "What is wrong with this draft? The note goes back with it.";
+    noteWrap.appendChild(ta);
+    var confirmRow = el("div", "acts2");
+    var confirmBtn = el("button", "ghost", "Send back with this note");
+    confirmBtn.type = "button";
+    confirmBtn.addEventListener("click", function () { sendBack(d, ta.value, confirmBtn); });
+    confirmRow.appendChild(confirmBtn);
+    noteWrap.appendChild(confirmRow);
+    wrap.appendChild(noteWrap);
+
+    back.addEventListener("click", function () {
+      noteWrap.hidden = false;
+      ta.focus();
+    });
+
+    return wrap;
+  }
+
+  function openReview(d) {
+    renderCard(d);
+    var art = stage.querySelector(".card");
+    if (!art) return;
+    var b = el("div", "banner review");
+    b.appendChild(el("b", null, "Draft — not cleared"));
+    b.appendChild(document.createTextNode(
+      " Staff cannot see this card. Check it against the report below, then clear it or send it back."
+    ));
+    art.insertBefore(b, art.firstChild);
+    art.appendChild(reviewPanel(d));
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    art.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+
+  async function approve(d, btn) {
+    btn.disabled = true;
+    btn.textContent = "Clearing…";
+    var today = new Date().toISOString().slice(0, 10);
+    var card = {
+      slug: d.slug, condition: d.condition, segment: d.segment || "", icd10: d.icd10 || "",
+      summary: d.summary || "", news: d.news || [], drugs: d.drugs || [],
+      notOnCard: d.notOnCard || [], asOf: d.asOf || today,
+      status: "cleared", clearedAt: today, clearedBy: reviewerName || "reviewer"
+    };
+    try {
+      await db.doc("cards/" + d.slug).set(card);
+      await db.doc("drafts/" + d.slug).update({ status: "approved", approvedAt: today, approvedBy: card.clearedBy });
+      try { await db.doc("requests/" + d.slug).update({ status: "cleared" }); } catch (e) {}
+      renderCard(card);
+      setNotice(null);
+      loadQueue();
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = "Clear for staff";
+      setNotice("Couldn't clear the card — clearing needs edit access to this page.", "phi");
+    }
+  }
+
+  async function sendBack(d, note, btn) {
+    btn.disabled = true;
+    btn.textContent = "Sending back…";
+    var today = new Date().toISOString().slice(0, 10);
+    try {
+      await db.doc("drafts/" + d.slug).update({
+        status: "returned", returnedAt: today,
+        returnedBy: reviewerName || "reviewer",
+        returnNote: String(note || "").slice(0, 2000)
+      });
+      try { await db.doc("requests/" + d.slug).update({ status: "returned" }); } catch (e) {}
+      renderPending(d.condition, "returned");
+      loadQueue();
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = "Send back with this note";
+      setNotice("Couldn't send it back — that needs edit access to this page.", "phi");
+    }
+  }
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); submit(); });
+
+  /* ---------------- boot ---------------- */
+  renderCard(EXAMPLE);
+
+  (async function lightUp() {
+    if (!window.claude || !window.claude.use) {
+      envnote.textContent = "Offline preview";
+      return;
+    }
+    try { user = await window.claude.use("user"); } catch (e) {}
+    try { db = await window.claude.use("db"); } catch (e) {}
+    try { sample = await window.claude.use("sample"); } catch (e) {}
+
+    if (!db) {
+      envnote.textContent = "Card store unavailable";
+      return;
+    }
+    try { canReview = !!(user && user.canEdit && user.canEdit()); } catch (e) { canReview = false; }
+    if (canReview && user && user.me) {
+      try { var me = await user.me(); reviewerName = (me && me.name) || ""; } catch (e) {}
+    }
+    envnote.textContent = canReview ? "Reviewer · can clear cards" : "Reviewer-cleared reference";
+
+    try {
+      var q = await db.collection("cards").where("status", "==", "cleared").limit(8).get();
+      var rows = (q && q.docs ? q.docs.map(function (d) { return d.data ? d.data() : d; }) : q) || [];
+      renderRecent(rows);
+      if (rows.length) renderCard(rows[0]);
+    } catch (e) { /* empty store is the normal first-run case */ }
+
+    if (canReview) loadQueue();
+  })();
+})();
+</script>

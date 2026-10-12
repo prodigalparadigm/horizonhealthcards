@@ -1,0 +1,118 @@
+{
+  "slug": "type-2-diabetes-mellitus",
+  "condition": "Type 2 diabetes mellitus",
+  "segment": "Adult, non-pregnant",
+  "icd10": "E11.9",
+  "asOf": "2026-10-12",
+  "summary": "Chronic hyperglycemia from insulin resistance with relative insulin deficiency; most adult cases, strongly linked to obesity/metabolic risk. Often asymptomatic at diagnosis (found on screening); symptomatic presentation includes polyuria, polydipsia, fatigue, blurred vision. ADA 2026 frames GLP-1 RA and SGLT2i therapy as disease-modifying, considered from diagnosis with strength scaling to ASCVD/HF/CKD risk, layered on lifestyle change and metformin rather than reserved as later add-ons (ADA Standards of Care in Diabetes-2026, Sec. 9).",
+  "news": [
+    {
+      "when": "2026-08",
+      "what": "Mounjaro (tirzepatide) FDA-approved to reduce MACE risk in adults with T2D at high CV risk; SURPASS-CVOT (~13,000 pts, >4.5 yr) noninferior to dulaglutide on MACE-3 (HR 0.92, 95.3% CI 0.83-1.01) - first dual GIP/GLP-1 with this claim.",
+      "url": "https://investor.lilly.com/news-releases/news-release-details/fda-approves-lillys-mounjaro-tirzepatide-reduce-cardiovascular",
+      "signal": false
+    },
+    {
+      "when": "2026-03",
+      "what": "Awiqli (insulin icodec) FDA-approved; first once-weekly basal insulin for adults with T2DM, reducing basal injections from 7/week to 1 (ONWARDS program, ~2,680 pts).",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5162b93e-5775-4581-a5e9-e8783ae0acd7",
+      "signal": false
+    },
+    {
+      "when": "2025-10",
+      "what": "Rybelsus (oral semaglutide) FDA-approved for MACE risk reduction in adults with T2D at high CV risk regardless of prior CV event - first oral GLP-1 RA with a MACE indication (SOUL trial, n=9,650, ~14% relative MACE reduction over ~4 yr).",
+      "url": "https://www.prnewswire.com/news-releases/fda-approves-novo-nordisks-oral-semaglutide-for-cardiovascular-cv-risk-reduction-in-adults-with-type-2-diabetes-who-are-at-high-risk-including-those-who-have-not-had-a-prior-cv-event-302588022.html",
+      "signal": false
+    },
+    {
+      "when": "2025",
+      "what": "Of 5,783 newly diagnosed adults across 60 West Michigan primary-care clinics (Apr 2021-Jan 2023), only 19.9% were prescribed an SGLT2i or GLP-1 RA within 3 months - barely higher in guideline-qualifying subgroups (ischemic heart disease 20.0%, eGFR<60 19.3%, BMI>=32 20.3%).",
+      "url": "https://doi.org/10.1155/jdr/6656982",
+      "signal": false
+    }
+  ],
+  "drugs": [
+    {
+      "drug": "Canagliflozin (Invokana)",
+      "cls": "SGLT2i",
+      "line": "1L (ASCVD/HF/CKD)",
+      "route": "PO",
+      "warning": "No current boxed warning (amputation boxed warning removed 2020, now in Warnings and Precautions); W&P: lower-limb amputation, DKA, genital mycotic infection",
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/204042s040lbl.pdf"
+    },
+    {
+      "drug": "Dulaglutide (Trulicity)",
+      "cls": "GLP-1 RA",
+      "line": "1L (ASCVD)",
+      "route": "SC",
+      "warning": "Boxed: thyroid C-cell tumors (class); contraindicated with personal/family history of medullary thyroid carcinoma or MEN 2",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/125469s036lbl.pdf"
+    },
+    {
+      "drug": "Metformin",
+      "cls": "Biguanide",
+      "line": "1L (all, absent contraindication)",
+      "route": "PO",
+      "warning": "Boxed: lactic acidosis - risk up with renal/hepatic impairment, sepsis, dehydration, excess alcohol, acute CHF",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/209806s008lbl.pdf"
+    },
+    {
+      "drug": "Semaglutide (Ozempic)",
+      "cls": "GLP-1 RA",
+      "line": "1L (ASCVD)",
+      "route": "SC",
+      "warning": "Boxed: thyroid C-cell tumors (class); contraindicated with personal/family history of medullary thyroid carcinoma or MEN 2",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/209637s035,209637s037lbl.pdf"
+    },
+    {
+      "drug": "Tirzepatide (Mounjaro)",
+      "cls": "Dual GIP/GLP-1",
+      "line": "1L (ASCVD, HFpEF+obesity)",
+      "route": "SC",
+      "warning": "Boxed: thyroid C-cell tumors (class); contraindicated with personal/family history of medullary thyroid carcinoma or MEN 2",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/215866s031lbl.pdf"
+    },
+    {
+      "drug": "Pioglitazone (Actos)",
+      "cls": "TZD",
+      "line": "2L",
+      "route": "PO",
+      "warning": "Boxed: congestive heart failure (class); contraindicated in NYHA Class III/IV heart failure",
+      "boxed": true,
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2017/021073s049lbl.pdf"
+    },
+    {
+      "drug": "Sulfonylureas (glipizide/glyburide)",
+      "cls": "Sulfonylurea",
+      "line": "2L",
+      "route": "PO",
+      "warning": "Label warning: increased CV mortality vs. diet alone (UGDP, tolbutamide data extrapolated to class) - boxed-format of this warning not confirmed this pass",
+      "src": "FDA label",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2008/017783s019lbl.pdf"
+    }
+  ],
+  "notOnCard": [
+    "DPP-4 inhibitors (e.g., sitagliptin) - no verifiable primary label source located this pass; warnings/precautions not confirmed",
+    "Oral semaglutide (Rybelsus) as a standalone drug row - label/dosing not pulled this pass",
+    "Once-weekly basal insulins Awiqli (insulin icodec) and Onswik (insulin efsitora alfa-gobe) - boxed-warning status not checked against a specific product label this pass",
+    "Exenatide (Byetta/Bydureon) - boxed-warning status not verified this pass",
+    "Exact ADA 2026 recommendation numbers (e.g., 9.5-9.22) - not primary-confirmed; source page returned 403 on direct fetch, numbering came from a Tier 4 summary",
+    "GLP-1 RA preference at eGFR<30 in CKD - Tier 4 summary only, not primary-confirmed",
+    "Reported Ozempic CKD indication (FLOW trial) - unverified, no retrievable primary source; excluded per policy",
+    "Initial U.S. approval years for metformin, canagliflozin, sitagliptin, exenatide, pioglitazone - not confirmed against a label's Initial U.S. Approval line",
+    "ADA 2026 Summary of Revisions items (automated insulin delivery preferred for insulin-treated T2D, broadened CGM eligibility, new annual obesity screening) - omitted from News for space",
+    "Phase 3, not-yet-approved agents (orforglipron, CagriSema) - investigational, not included per card scope"
+  ],
+  "status": "pending_review",
+  "builtAt": "2026-10-12"
+}
