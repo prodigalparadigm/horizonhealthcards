@@ -1,5 +1,7 @@
 # Hypertension — Adult, non-pregnant (ICD-10 I10)
 
+*As of 2026-10-12. DRAFT — not clinically reviewed. Fact-check verdict: **BLOCK**. Not for clinical use.*
+
 ## Quick Summary
 Persistently elevated blood pressure; a leading modifiable risk factor for stroke, MI, heart failure, and CKD. Affects an estimated 47.7% of US adults (CDC). Diagnosed by repeated office/ambulatory BP measurement and staged by severity. Per the 2025 AHA/ACC/multisociety guideline, management is lifestyle modification plus pharmacotherapy from three first-line classes (thiazide/thiazide-like diuretic, long-acting dihydropyridine CCB, ACE inhibitor or ARB), targeting <130/80 for most adults.
 

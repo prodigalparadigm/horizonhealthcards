@@ -1,5 +1,7 @@
 # Community-acquired pneumonia — Adult (ICD-10 J18.9)
 
+*As of 2026-10-12. DRAFT — not clinically reviewed. Fact-check verdict: **BLOCK**. Not for clinical use.*
+
 ## Quick Summary
 Acute pulmonary infection acquired outside the healthcare setting; a leading infectious cause of hospitalization and death in older and comorbid adults. Presents with cough, fever, dyspnea, pleuritic pain, and a new infiltrate on imaging. Site-of-care and severity are set by PSI (preferred over CURB-65, 2019 ATS/IDSA, strong) or the 9-criteria minor/2-criteria major severe-CAP definition; the 2019 guideline retired HCAP as a category. Empiric antibacterials are chosen by site of care and comorbidities, with culture-guided de-escalation at 48 hours.
 

@@ -1,5 +1,7 @@
 # Chronic obstructive pulmonary disease — Adult (ICD-10 J44.9)
 
+*As of 2026-10-12. DRAFT — not clinically reviewed. Not for clinical use.*
+
 ## Quick Summary
 Progressive, largely irreversible airflow limitation from chronic airway/alveolar inflammation; diagnosis requires postbronchodilator FEV1/FVC below 0.70. Overwhelmingly smoking-related, rising sharply with age (US age-adjusted prevalence 3.8% of adults 18+, 10.5% at 75+); 5th-leading US cause of death in 2023 (141,733 deaths). Presents as chronic dyspnea, cough, and sputum production punctuated by exacerbations. GOLD 2026 reframes management around **"disease activity"** (ongoing inflammation, symptom variability, exacerbation risk) layered on ABE risk groups, pairing stepped inhaled bronchodilator +/- ICS therapy with smoking cessation, vaccination, and pulmonary rehabilitation.
 
